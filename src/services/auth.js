@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto';
 
-import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/tokenLifetime.js';
+import { ONE_DAY, THIRTY_DAYS } from '../constants/tokenLifetime.js';
 
 export const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');
@@ -9,7 +9,7 @@ export const createSession = () => {
   return {
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + ONE_DAY),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   };
 };

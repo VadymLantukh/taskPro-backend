@@ -1,9 +1,9 @@
 import createHttpError from 'http-errors';
+
 import * as boardsServices from '../services/boards.js';
-import BoardCollection from '../db/Boards.js';
 
 export const getBoardController = async (req, res, next) => {
-  const { boardId: _id } = req.params;
+  const { id: _id } = req.params;
   const { _id: userId } = req.user;
 
   const data = await boardsServices.getBoard({ _id, userId });
@@ -35,12 +35,12 @@ export const addBoardController = async (req, res) => {
   });
 };
 
-export const updateContactController = async (req, res, next) => {
-  const { boardId } = req.params;
+export const updateBoardController = async (req, res, next) => {
+  const { id } = req.params;
   const { _id: userId } = req.user;
 
-  const result = await BoardCollection.updateContact(
-    { _id: boardId, userId },
+  const result = await boardsServices.updateBoard(
+    { _id: id, userId },
     {
       ...req.body,
     },

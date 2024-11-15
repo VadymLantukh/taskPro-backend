@@ -13,6 +13,8 @@ const boardsRouter = Router();
 
 boardsRouter.use(authenticate);
 
+boardsRouter.get('/', ctrlWrapper(boardsController.getBoardsController));
+
 boardsRouter.get(
   '/:id',
   isValidId,
@@ -30,6 +32,12 @@ boardsRouter.patch(
   isValidId,
   validateBody(updateBoardSchema),
   ctrlWrapper(boardsController.updateBoardController),
+);
+
+boardsRouter.delete(
+  '/:id',
+  isValidId,
+  ctrlWrapper(boardsController.deleteBoardController),
 );
 
 export default boardsRouter;

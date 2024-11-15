@@ -9,7 +9,7 @@ const mainRouter = Router();
 
 mainRouter.use('/auth', authRouter);
 mainRouter.use('/boards', boardsRouter);
-mainRouter.use('/colums', columnsRouter);
+mainRouter.use('/columns', columnsRouter);
 mainRouter.use('/tasks', tasksRouter);
 
 export default mainRouter;

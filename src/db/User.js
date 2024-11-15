@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
 
 import { emailRegexp } from '../constants/emailRegexp.js';
+import { themeType } from '../constants/themeType.js';
 
 const usersSchema = new Schema(
   {
@@ -18,9 +19,10 @@ const usersSchema = new Schema(
       type: String,
       required: true,
     },
-    boardId: {
-      type: Schema.Types.ObjectId,
-      required: true,
+    theme: {
+      type: String,
+      enum: themeType,
+      default: 'light',
     },
     avatar: {
       type: String,

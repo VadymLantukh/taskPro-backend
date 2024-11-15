@@ -2,8 +2,8 @@ import { Router } from 'express';
 
 import * as boardsController from '../controllers/board.js';
 
-import { isValidId } from '../middlewares/isValidId';
-import { ctrlWrapper } from '../utils/ctrlWrapper';
+import { isValidId } from '../middlewares/isValidId.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const boardsRouter = Router();
 

@@ -37,17 +37,20 @@ export const loginUser = async (payload) => {
   const isEqual = await bcrypt.compare(payload.password, user.password);
   if (!isEqual) throw createHttpError(401, 'The password is not correct');
 
-  await SessionsCollection.deleteOne({ id: user._id });
+  await SessionsCollection.deleteOne({ userId: user._id });
 
   const newSession = createSession();
 
   return await SessionsCollection.create({
-    id: user._id,
+    userId: user._id,
     ...newSession,
   });
 };
 
 export const updateUser = async (filter, payload, options = {}) => {
+  const encrypdetPassword = await bcrypt.hash(payload.password, 10);
+  payload.password = encrypdetPassword;
+
   const rawResult = await UsersCollection.findOneAndUpdate(filter, payload, {
     ...options,
     new: false,

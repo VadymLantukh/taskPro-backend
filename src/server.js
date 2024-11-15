@@ -3,7 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 import { env } from './utils/env.js';
-import { logger } from './middlewares/logger.js';
+// import { logger } from './middlewares/logger.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import mainRouter from './routers/allUse.js';
@@ -24,7 +24,7 @@ export const setupServer = () => {
 
   app.use(cookieParser());
 
-  app.use(logger);
+  // app.use(logger);
 
   app.use('/api-docs', swaggerDocs());
 

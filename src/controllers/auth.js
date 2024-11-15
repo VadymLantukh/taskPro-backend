@@ -49,7 +49,6 @@ export const loginUsersController = async (req, res) => {
 export const updateUserController = async (req, res) => {
   const avatar = req.file;
   const { id } = req.params;
-
   let avatarUrl;
 
   if (avatar) {

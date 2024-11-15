@@ -11,6 +11,7 @@ import {
 import { loginUsersSchema, registerUsersSchema, updateUserSchema } from '../validation/auth.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { upload } from '../middlewares/multer.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const authRouter = Router();
 
@@ -29,6 +30,7 @@ authRouter.post(
 authRouter.patch(
   '/:id',
   isValidId,
+  authenticate,
   upload.single('avatar'),
   validateBody(updateUserSchema),
   ctrlWrapper(updateUserController),

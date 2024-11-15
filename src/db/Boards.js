@@ -17,11 +17,12 @@ const boardSchema = new Schema(
       enum: boardIcons,
       default: 'icon_1',
     },
-    columns: {
-      type: Array,
-      ref: 'column',
-      default: [],
-    },
+    columns: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'column',
+      },
+    ],
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'user',

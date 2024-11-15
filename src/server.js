@@ -6,7 +6,7 @@ import { env } from './utils/env.js';
 import { logger } from './middlewares/logger.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-// import mainRouter from './routers/allUse.js';
+import mainRouter from './routers/allUse.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
@@ -28,7 +28,7 @@ export const setupServer = () => {
 
   app.use('/api-docs', swaggerDocs());
 
-  // app.use(mainRouter);
+  app.use(mainRouter);
 
   app.use('*', notFoundHandler);
 

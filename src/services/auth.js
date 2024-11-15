@@ -47,6 +47,20 @@ export const loginUser = async (payload) => {
   });
 };
 
+export const updateUser = async (filter, payload, options = {}) => {
+  const rawResult = await UsersCollection.findOneAndUpdate(filter, payload, {
+    ...options,
+    new: true,
+    includeResultMetadata: true,
+  });
+
+  if (!rawResult || !rawResult.value) return null;
+
+  return {
+    user: rawResult.value,
+  };
+};
+
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
 };

@@ -18,6 +18,13 @@ const usersSchema = new Schema(
       type: String,
       required: true,
     },
+    boardId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    avatar: {
+      type: String,
+    },
   },
   {
     timestamps: true,

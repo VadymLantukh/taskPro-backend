@@ -2,6 +2,18 @@ import createHttpError from 'http-errors';
 
 import * as boardsServices from '../services/boards.js';
 
+export const getBoardsController = async (req, res) => {
+  const { _id: userId } = req.user;
+
+  const data = await boardsServices.getBoards(userId);
+
+  res.json({
+    status: 200,
+    message: 'Successfully found boards!',
+    data,
+  });
+};
+
 export const getBoardController = async (req, res, next) => {
   const { id: _id } = req.params;
   const { _id: userId } = req.user;
@@ -57,4 +69,17 @@ export const updateBoardController = async (req, res, next) => {
     message: 'Successfully patched a board!',
     data: result,
   });
+};
+
+export const deleteBoardController = async (req, res, next) => {
+  const { id } = req.params;
+  const { _id: userId } = req.user;
+  const data = await boardsServices.deleteBoard({ _id: id, userId });
+
+  if (!data) {
+    next(createHttpError(404, 'Board not found'));
+    return;
+  }
+
+  res.status(204).send();
 };

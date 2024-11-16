@@ -48,6 +48,15 @@ export const loginUser = async (payload) => {
 };
 
 export const updateUser = async (filter, payload, options = {}) => {
+  const currentUser = await UsersCollection.findOne(filter);
+  if (!currentUser) throw createHttpError(404, 'Not found user');
+
+  if (payload.theme && payload.theme === currentUser.theme) {
+    return {
+      user: currentUser,
+    };
+  }
+
   if (payload.password) {
     const encryptedPassword = await bcrypt.hash(payload.password, 10);
     payload.password = encryptedPassword;

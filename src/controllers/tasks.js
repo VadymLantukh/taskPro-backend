@@ -39,10 +39,7 @@ export const updateTaskController = async (req, res) => {
   const { _id: userId } = req.user;
   const { boardId, columnId } = req.body;
 
-  const { data } = await updateTask(
-    { _id: id },
-    { ...req.body, userId, boardId, columnId },
-  );
+  const { data } = await updateTask({ _id: id, userId }, req.body);
 
   if (!data) {
     throw createHttpError(404, 'Task not found');

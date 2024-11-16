@@ -1,20 +1,26 @@
+// validation/columnValidation.js
 import Joi from 'joi';
 
-export const createColumnSchema = Joi.object({
-  title: Joi.string().required().messages({
-    'string.empty': '"title" cannot be an empty field',
-    'any.required': 'missing required field "title"',
-  }),
+const createColumnSchema = Joi.object({
   userId: Joi.string().required().messages({
-    'string.base': '"userId" must be a string',
-    'any.required': 'missing required field "columnId"',
+    'string.empty': 'User ID is required',
   }),
   boardId: Joi.string().required().messages({
-    'string.base': '"boardId" must be a string',
-    'any.required': 'missing required field "columnId"',
+    'string.empty': 'Board ID is required',
+  }),
+  title: Joi.string().required().messages({
+    'string.empty': 'Title is required',
   }),
 });
 
-export const updateColumnSchema = Joi.object({
-  title: Joi.string().required(),
+const updateColumnSchema = Joi.object({
+  title: Joi.string().optional().messages({
+    'string.empty': 'Title is required',
+  }),
+  tasks: Joi.array().items(Joi.string()).optional(),
 });
+
+export default {
+  createColumnSchema,
+  updateColumnSchema,
+};

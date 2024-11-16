@@ -1,8 +1,8 @@
 import ColumnCollection from '../db/Columns.js';
 import TasksCollection from '../db/Tasks.js';
 
-export const postTask = async (body) => {
-  const newTask = await TasksCollection.create(body);
+export const postTask = async (payload) => {
+  const newTask = await TasksCollection.create(payload);
 
   const { boardId, columnId, userId, _id } = newTask;
 
@@ -32,3 +32,19 @@ export const updateTask = async (filter, payload) => {
 };
 
 export const deleteTask = (filter) => TasksCollection.findByIdAndDelete(filter);
+
+export const replaceTask = async (oldColumn, newColumn, taskId) => {
+  await ColumnCollection.findOneAndUpdate(oldColumn, {
+    $pull: { tasks: taskId },
+  });
+
+  await ColumnCollection.findOneAndUpdate(newColumn, {
+    $push: { tasks: taskId },
+  });
+};
+
+export const deleteTaskFromColumn = async (filter, taskId) => {
+  return await ColumnCollection.findOneAndUpdate(filter, {
+    $pull: { tasks: taskId },
+  });
+};

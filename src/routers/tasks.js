@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { authenticate } from '../middlewares/authenticate.js';
-import { isValidId } from '../middlewares/isValidId.js';
-import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { createTaskSchema, updateTaskSchema } from '../validation/tasks.js';
+import { convertColumnId } from '../middlewares/convertColumnId.js';
+import { convertBoardId } from '../middlewares/convertBoardId.js';
 import { validateBody } from '../middlewares/validateBody.js';
+import { createTaskSchema, updateTaskSchema } from '../validation/tasks.js';
 import {
-  deleteTaskController,
   postTaskController,
   updateTaskController,
+  deleteTaskController,
 } from '../controllers/tasks.js';
 
 const tasksRouter = Router();
@@ -17,16 +17,24 @@ tasksRouter.use(authenticate);
 tasksRouter.post(
   '/',
   validateBody(createTaskSchema),
-  ctrlWrapper(postTaskController),
+  convertBoardId,
+  convertColumnId,
+  postTaskController,
 );
 
 tasksRouter.patch(
   '/:id',
   validateBody(updateTaskSchema),
-  isValidId,
-  ctrlWrapper(updateTaskController),
+  convertBoardId,
+  convertColumnId,
+  updateTaskController,
 );
 
-tasksRouter.delete('/:id', isValidId, ctrlWrapper(deleteTaskController));
+tasksRouter.delete(
+  '/:id',
+  convertBoardId,
+  convertColumnId,
+  deleteTaskController,
+);
 
 export default tasksRouter;

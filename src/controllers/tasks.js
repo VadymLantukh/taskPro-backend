@@ -4,8 +4,10 @@ import {
   deleteTask,
   postTask,
   replaceTask,
+  replaceTask,
   updateTask,
 } from '../services/tasks.js';
+import { Types } from 'mongoose';
 import { Types } from 'mongoose';
 
 export const postTaskController = async (req, res) => {
@@ -13,7 +15,11 @@ export const postTaskController = async (req, res) => {
   const { boardId, columnId } = req.body;
 
   const column = await checkColumn({ _id: columnId, boardId, userId });
+  const column = await checkColumn({ _id: columnId, boardId, userId });
 
+  if (!column) {
+    throw createHttpError(404, `Column with id:${columnId} not found`);
+  }
   if (!column) {
     throw createHttpError(404, `Column with id:${columnId} not found`);
   }
@@ -39,6 +45,14 @@ export const updateTaskController = async (req, res) => {
   const { _id: userId } = req.user;
   const { boardId, columnId, newColumnId } = req.body;
   // const { columnId: newColumnId } = req.body;
+  const { boardId, columnId, newColumnId } = req.body;
+  // const { columnId: newColumnId } = req.body;
+
+  const column = await checkColumn({
+    _id: columnId,
+    boardId,
+    userId,
+  });
 
   const column = await checkColumn({
     _id: columnId,
@@ -92,6 +106,8 @@ export const updateTaskController = async (req, res) => {
 
   res.status(200).json({
     status: 200,
+    message: 'Task updated successfully',
+    data: { _id, title, description, priority, deadline, createdAt, updatedAt },
     message: 'Task updated successfully',
     data: { _id, title, description, priority, deadline, createdAt, updatedAt },
   });

@@ -22,19 +22,8 @@ tasksRouter.post(
   postTaskController,
 );
 
-tasksRouter.patch(
-  '/:id',
-  validateBody(updateTaskSchema),
-  convertBoardId,
-  convertColumnId,
-  updateTaskController,
-);
+tasksRouter.patch('/:id', validateBody(updateTaskSchema), updateTaskController);
 
-tasksRouter.delete(
-  '/:id',
-  convertBoardId,
-  convertColumnId,
-  deleteTaskController,
-);
+tasksRouter.delete('/:id', deleteTaskController);
 
 export default tasksRouter;

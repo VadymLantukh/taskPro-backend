@@ -52,7 +52,4 @@ export const updateTaskSchema = Joi.object({
   columnId: Joi.string().messages({
     'string.base': '"columnId" must be a string',
   }),
-  boardId: Joi.string().messages({
-    'string.base': '"boardId" must be a string',
-  }),
 });

@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { priorityList } from '../constants/tasks';
-import { handleSaveError, setUpdateSettings } from './hooks';
+import { priorityList } from '../constants/tasks.js';
+import { handleSaveError, setUpdateSettings } from './hooks.js';
+
 const taskSchema = new Schema(
   {
     title: {
@@ -18,19 +19,22 @@ const taskSchema = new Schema(
     },
     deadline: {
       type: Date,
-      required: true,
+      default: null,
     },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'user',
-    },
-    columnId: {
-      type: Schema.Types.ObjectId,
-      ref: 'column',
+      required: true,
     },
     boardId: {
       type: Schema.Types.ObjectId,
       ref: 'board',
+      required: true,
+    },
+    columnId: {
+      type: Schema.Types.ObjectId,
+      ref: 'column',
+      required: true,
     },
   },
   {
@@ -38,14 +42,11 @@ const taskSchema = new Schema(
     versionKey: false,
   },
 );
+
 taskSchema.post('save', handleSaveError);
-
 taskSchema.pre('findOneAndUpdate', setUpdateSettings);
-
 taskSchema.post('findOneAndUpdate', handleSaveError);
 
-export const sortByListTasks = ['title', 'priority', 'deadline'];
-
-const TasksCollection = model('tasks', taskSchema);
+const TasksCollection = model('task', taskSchema);
 
 export default TasksCollection;

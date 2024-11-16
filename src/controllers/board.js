@@ -34,6 +34,7 @@ export const getBoardController = async (req, res, next) => {
 
 export const addBoardController = async (req, res) => {
   const { _id: userId } = req.user;
+  console.log(userId);
 
   const data = await boardsServices.addBoard({
     ...req.body,

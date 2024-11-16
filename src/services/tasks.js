@@ -1,4 +1,4 @@
-import ColumnCollection from '../db/Colums.js'; // Corrected the import
+import ColumnCollection from '../db/Columns.js'; // Corrected the import
 import TasksCollection from '../db/Tasks.js';
 
 export const postTask = async (payload) => {

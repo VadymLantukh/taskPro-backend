@@ -48,12 +48,14 @@ export const loginUser = async (payload) => {
 };
 
 export const updateUser = async (filter, payload, options = {}) => {
-  const encrypdetPassword = await bcrypt.hash(payload.password, 10);
-  payload.password = encrypdetPassword;
+  if (payload.password) {
+    const encryptedPassword = await bcrypt.hash(payload.password, 10);
+    payload.password = encryptedPassword;
+  }
 
   const rawResult = await UsersCollection.findOneAndUpdate(filter, payload, {
     ...options,
-    new: false,
+    new: true,
     includeResultMetadata: true,
   });
 

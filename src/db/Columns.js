@@ -16,10 +16,6 @@ const columnSchema = new Schema(
       ref: 'user',
       required: true,
     },
-    // order: {
-    //   type: Number,
-    //   required: true,
-    // },
     tasks: [
       {
         type: Schema.Types.ObjectId,
@@ -27,7 +23,7 @@ const columnSchema = new Schema(
       },
     ],
   },
-  { timestamps: true },
+  { versionKey: false, timestamps: true },
 );
 
 const ColumnCollection = model('column', columnSchema);

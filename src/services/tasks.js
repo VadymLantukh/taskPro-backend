@@ -48,3 +48,11 @@ export const deleteTaskFromColumn = async (filter, taskId) => {
     $pull: { tasks: taskId },
   });
 };
+
+export const findOldColumnId = async (_id) => {
+  const data = await TasksCollection.findById(_id);
+
+  const oldColumnId = data.columnId;
+
+  return oldColumnId;
+};

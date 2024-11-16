@@ -13,7 +13,6 @@ export const createTaskSchema = Joi.object({
     'string.base': '"description" must be a string',
   }),
   priority: Joi.string()
-    .required()
     .valid(...priorityList)
     .messages({
       'string.empty': '"priority" cannot be an empty field',

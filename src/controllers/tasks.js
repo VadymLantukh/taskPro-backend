@@ -41,8 +41,7 @@ export const updateTaskController = async (req, res) => {
   const { id: _id } = req.params;
   const { _id: userId } = req.user;
 
-  const { boardId, columnId, newColumnId } = req.body;
-  // const { columnId: newColumnId } = req.body;
+  const { data } = await updateTask({ _id: id, userId }, req.body);
 
   const column = await checkColumn({
     _id: columnId,

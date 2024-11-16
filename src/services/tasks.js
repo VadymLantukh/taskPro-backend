@@ -33,3 +33,19 @@ export const updateTask = async (filter, payload, options = {}) => {
 };
 
 export const deleteTask = (filter) => TasksCollection.findByIdAndDelete(filter);
+
+export const replaceTask = async (oldColumn, newColumn, taskId) => {
+  await ColumnCollection.findOneAndUpdate(oldColumn, {
+    $pull: { tasks: taskId },
+  });
+
+  await ColumnCollection.findOneAndUpdate(newColumn, {
+    $push: { tasks: taskId },
+  });
+};
+
+export const deleteTaskFromColumn = async (filter, taskId) => {
+  return await ColumnCollection.findOneAndUpdate(filter, {
+    $pull: { tasks: taskId },
+  });
+};

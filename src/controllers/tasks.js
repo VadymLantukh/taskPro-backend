@@ -10,20 +10,22 @@ import { Types } from 'mongoose';
 
 export const postTaskController = async (req, res) => {
   const { _id: userId } = req.user;
-  const { body } = req;
-  const { boardId, columnId } = body;
+  const { boardId, columnId } = req.body;
 
   const column = await checkColumn({ _id: columnId, boardId, userId });
 
   if (!column) {
     throw createHttpError(404, `Column with id:${columnId} not found`);
   }
+  if (!column) {
+    throw createHttpError(404, `Column with id:${columnId} not found`);
+  }
 
-  body.userId = userId;
-  body.boardId = boardId;
-  body.columnId = columnId;
+  req.body.userId = userId;
+  // req.body.boardId = boardId;
+  // req.body.columnId = columnId;
 
-  const data = await postTask(body);
+  const data = await postTask(req.body);
 
   const { _id, title, description, priority, deadline, createdAt, updatedAt } =
     data;
@@ -36,8 +38,9 @@ export const postTaskController = async (req, res) => {
 };
 
 export const updateTaskController = async (req, res) => {
-  const { taskId } = req.params;
+  const { id: _id } = req.params;
   const { _id: userId } = req.user;
+
   const { boardId, columnId, newColumnId } = req.body;
   // const { columnId: newColumnId } = req.body;
 
@@ -81,8 +84,15 @@ export const updateTaskController = async (req, res) => {
     );
   }
 
-  const { _id, title, description, priority, deadline, createdAt, updatedAt } =
-    data;
+  const {
+    taskId,
+    title,
+    description,
+    priority,
+    deadline,
+    createdAt,
+    updatedAt,
+  } = data;
 
   res.status(200).json({
     status: 200,

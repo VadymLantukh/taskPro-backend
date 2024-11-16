@@ -11,9 +11,13 @@ import { Types } from 'mongoose';
 export const postTaskController = async (req, res) => {
   const { _id: userId } = req.user;
   const { boardId, columnId } = req.body;
+  const { boardId, columnId } = req.body;
 
   const column = await checkColumn({ _id: columnId, boardId, userId });
 
+  if (!column) {
+    throw createHttpError(404, `Column with id:${columnId} not found`);
+  }
   if (!column) {
     throw createHttpError(404, `Column with id:${columnId} not found`);
   }
@@ -24,7 +28,11 @@ export const postTaskController = async (req, res) => {
   req.body.userId = userId;
   // req.body.boardId = boardId;
   // req.body.columnId = columnId;
+  req.body.userId = userId;
+  // req.body.boardId = boardId;
+  // req.body.columnId = columnId;
 
+  const data = await postTask(req.body);
   const data = await postTask(req.body);
 
   const { _id, title, description, priority, deadline, createdAt, updatedAt } =

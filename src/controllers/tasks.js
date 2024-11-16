@@ -2,11 +2,11 @@ import createHttpError from 'http-errors';
 import {
   checkColumn,
   deleteTask,
+  findOldColumnId,
   postTask,
   replaceTask,
   updateTask,
 } from '../services/tasks.js';
-import { Types } from 'mongoose';
 
 export const postTaskController = async (req, res) => {
   const { _id: userId } = req.user;
@@ -14,9 +14,6 @@ export const postTaskController = async (req, res) => {
 
   const column = await checkColumn({ _id: columnId, boardId, userId });
 
-  if (!column) {
-    throw createHttpError(404, `Column with id:${columnId} not found`);
-  }
   if (!column) {
     throw createHttpError(404, `Column with id:${columnId} not found`);
   }
@@ -40,46 +37,42 @@ export const postTaskController = async (req, res) => {
 export const updateTaskController = async (req, res) => {
   const { id: _id } = req.params;
   const { _id: userId } = req.user;
+  const { columnId } = req.body;
 
-  const { data } = await updateTask({ _id: id, userId }, req.body);
+  const oldColumnId = await findOldColumnId(_id);
+
+  // const { boardId, columnId } = req.body
 
   const column = await checkColumn({
     _id: columnId,
-    boardId,
-    userId,
   });
 
   if (!column) {
     throw createHttpError(404, `Column with id:${columnId} not found`);
   }
 
-  if (newColumnId) {
-    const column = await checkColumn({
-      _id: newColumnId,
-      boardId,
-      userId,
-    });
-    if (!column) {
-      throw createHttpError(404, `Column with id:${newColumnId} not found`);
-    }
-  }
+  // if (newColumnId) {
+  //   const column = await checkColumn({
+  //     _id: newColumnId,
+  //     boardId,
+  //     userId,
+  //   });
+  //   if (!column) {
+  //     throw createHttpError(404, `Column with id:${newColumnId} not found`);
+  //   }
+  // }
 
-  const data = await updateTask(
-    { _id: taskId, columnId, boardId, userId },
-    req.body,
-  );
+  const data = await updateTask({ _id, userId }, req.body);
 
   if (!data) {
     throw createHttpError(404, `Task with id:${taskId} not found`);
   }
 
-  if (newColumnId) {
-    const taskObjectId = new Types.ObjectId(taskId);
-
+  if (columnId) {
     await replaceTask(
-      { _id: columnId, boardId, userId },
-      { _id: newColumnId, boardId, userId },
-      taskObjectId,
+      { _id: oldColumnId, userId },
+      { _id: columnId, userId },
+      _id,
     );
   }
 

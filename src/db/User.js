@@ -27,6 +27,13 @@ const usersSchema = new Schema(
     avatar: {
       type: String,
     },
+    boards: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'board',
+        default: [],
+      },
+    ],
   },
   {
     timestamps: true,

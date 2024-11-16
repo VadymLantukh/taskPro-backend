@@ -9,11 +9,10 @@ export const createTaskSchema = Joi.object({
     'string.empty': '"title" cannot be an empty field',
     'any.required': 'Missing required field "title"',
   }),
-  description: Joi.string().messages({
+  description: Joi.string().required().messages({
     'string.base': '"description" must be a string',
   }),
   priority: Joi.string()
-    .required()
     .valid(...priorityList)
     .messages({
       'string.empty': '"priority" cannot be an empty field',
@@ -52,8 +51,5 @@ export const updateTaskSchema = Joi.object({
   }),
   columnId: Joi.string().messages({
     'string.base': '"columnId" must be a string',
-  }),
-  boardId: Joi.string().messages({
-    'string.base': '"boardId" must be a string',
   }),
 });

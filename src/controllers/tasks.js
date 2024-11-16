@@ -17,9 +17,6 @@ export const postTaskController = async (req, res) => {
   if (!column) {
     throw createHttpError(404, `Column with id:${columnId} not found`);
   }
-  if (!column) {
-    throw createHttpError(404, `Column with id:${columnId} not found`);
-  }
 
   req.body.userId = userId;
   // req.body.boardId = boardId;
@@ -41,7 +38,8 @@ export const updateTaskController = async (req, res) => {
   const { id: _id } = req.params;
   const { _id: userId } = req.user;
 
-  const { data } = await updateTask({ _id: id, userId }, req.body);
+  const { boardId, columnId } = req.body;
+  const { columnId: newColumnId } = req.body;
 
   const column = await checkColumn({
     _id: columnId,

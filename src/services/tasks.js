@@ -1,8 +1,8 @@
 import ColumnCollection from '../db/Colums.js'; // Corrected the import
 import TasksCollection from '../db/Tasks.js';
 
-export const postTask = async (body) => {
-  const newTask = await TasksCollection.create(body);
+export const postTask = async (payload) => {
+  const newTask = await TasksCollection.create(payload);
 
   const { boardId, columnId, userId, _id } = newTask;
 

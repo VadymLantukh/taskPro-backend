@@ -9,7 +9,7 @@ export const createTaskSchema = Joi.object({
     'string.empty': '"title" cannot be an empty field',
     'any.required': 'Missing required field "title"',
   }),
-  description: Joi.string().messages({
+  description: Joi.string().required().messages({
     'string.base': '"description" must be a string',
   }),
   priority: Joi.string()

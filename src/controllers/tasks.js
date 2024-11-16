@@ -3,10 +3,10 @@ import {
   checkColumn,
   deleteTask,
   postTask,
-  // replaceTask,
-  // updateTask,
+  replaceTask,
+  updateTask,
 } from '../services/tasks.js';
-// import { Types } from 'mongoose';
+import { Types } from 'mongoose';
 
 export const postTaskController = async (req, res) => {
   const { _id: userId } = req.user;
@@ -34,69 +34,69 @@ export const postTaskController = async (req, res) => {
   });
 };
 
-// export const updateTaskController = async (req, res) => {
-//   const { id: _id } = req.params;
-//   const { _id: userId } = req.user;
+export const updateTaskController = async (req, res) => {
+  const { id: _id } = req.params;
+  const { _id: userId } = req.user;
 
-//   const { boardId, columnId, newColumnId } = req.body;
-//   // const { columnId: newColumnId } = req.body;
+  const { boardId, columnId } = req.body;
+  const { columnId: newColumnId } = req.body;
 
-//   const column = await checkColumn({
-//     _id: columnId,
-//     boardId,
-//     userId,
-//   });
+  const column = await checkColumn({
+    _id: columnId,
+    boardId,
+    userId,
+  });
 
-//   if (!column) {
-//     throw createHttpError(404, `Column with id:${columnId} not found`);
-//   }
+  if (!column) {
+    throw createHttpError(404, `Column with id:${columnId} not found`);
+  }
 
-//   if (newColumnId) {
-//     const column = await checkColumn({
-//       _id: newColumnId,
-//       boardId,
-//       userId,
-//     });
-//     if (!column) {
-//       throw createHttpError(404, `Column with id:${newColumnId} not found`);
-//     }
-//   }
+  if (newColumnId) {
+    const column = await checkColumn({
+      _id: newColumnId,
+      boardId,
+      userId,
+    });
+    if (!column) {
+      throw createHttpError(404, `Column with id:${newColumnId} not found`);
+    }
+  }
 
-//   const data = await updateTask(
-//     { _id: taskId, columnId, boardId, userId },
-//     req.body,
-//   );
+  const data = await updateTask(
+    { _id: taskId, columnId, boardId, userId },
+    req.body,
+  );
 
-//   if (!data) {
-//     throw createHttpError(404, `Task with id:${taskId} not found`);
-//   }
+  if (!data) {
+    throw createHttpError(404, `Task with id:${taskId} not found`);
+  }
 
-//   if (newColumnId) {
-//     const taskObjectId = new Types.ObjectId(taskId);
+  if (newColumnId) {
+    const taskObjectId = new Types.ObjectId(taskId);
 
-//     await replaceTask(
-//       { _id: columnId, boardId, userId },
-//       { _id: newColumnId, boardId, userId },
-//       taskObjectId,
-//     );
-//   }
+    await replaceTask(
+      { _id: columnId, boardId, userId },
+      { _id: newColumnId, boardId, userId },
+      taskObjectId,
+    );
+  }
 
-//   const {
-//     taskId,
-//     title,
-//     description,
-//     priority,
-//     deadline,
-//     createdAt,
-//     updatedAt,
-//   } = data;
+  const {
+    taskId,
+    title,
+    description,
+    priority,
+    deadline,
+    createdAt,
+    updatedAt,
+  } = data;
 
-//   res.status(200).json({
-//     status: 200,
-//     message: 'Task updated successfully',
-//     data: { _id, title, description, priority, deadline, createdAt, updatedAt },
-//   });
-// };
+  res.status(200).json({
+    status: 200,
+    message: 'Task updated successfully',
+    data: { _id, title, description, priority, deadline, createdAt, updatedAt },
+  });
+};
 
 export const deleteTaskController = async (req, res) => {
   const { id } = req.params;

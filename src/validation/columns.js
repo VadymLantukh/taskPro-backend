@@ -2,9 +2,6 @@
 import Joi from 'joi';
 
 export const createColumnSchema = Joi.object({
-  userId: Joi.string().required().messages({
-    'string.empty': 'User ID is required',
-  }),
   boardId: Joi.string().required().messages({
     'string.empty': 'Board ID is required',
   }),

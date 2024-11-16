@@ -1,4 +1,4 @@
-import ColumnCollection from '../db/Columns.js'; // Corrected the import
+import ColumnCollection from '../db/Columns.js';
 import TasksCollection from '../db/Tasks.js';
 
 export const postTask = async (payload) => {
@@ -20,10 +20,9 @@ export const checkColumn = async (filter) => {
   return await ColumnCollection.findOne(filter);
 };
 
-export const updateTask = async (filter, payload, options = {}) => {
+export const updateTask = async (filter, payload) => {
   const result = await TasksCollection.findOneAndUpdate(filter, payload, {
     new: true,
-    ...options,
   });
 
   return {

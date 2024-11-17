@@ -5,12 +5,12 @@ import * as boardsServices from '../services/boards.js';
 export const getBoardsController = async (req, res) => {
   const { _id: userId } = req.user;
 
-  const data = await boardsServices.getBoards(userId);
+  const boards = await boardsServices.getBoards(userId);
 
   res.json({
     status: 200,
     message: 'Successfully found boards!',
-    data,
+    boards,
   });
 };
 

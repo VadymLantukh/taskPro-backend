@@ -1,4 +1,3 @@
-// validation/columnValidation.js
 import Joi from 'joi';
 
 export const createColumnSchema = Joi.object({

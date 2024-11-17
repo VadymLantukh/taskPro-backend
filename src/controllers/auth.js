@@ -2,6 +2,7 @@ import createHttpError from 'http-errors';
 
 import { THIRTY_DAYS } from '../constants/tokenLifetime.js';
 import {
+  getUserById,
   loginUser,
   logoutUser,
   registerUser,
@@ -43,6 +44,23 @@ export const loginUsersController = async (req, res) => {
     data: {
       accessToken: session.accessToken,
     },
+  });
+};
+
+export const getUserController = async (req, res, next) => {
+  const { id: _id } = req.params;
+
+  const data = await getUserById(_id);
+
+  if (!data) {
+    next(createHttpError(404, `User with id ${_id} not found!`));
+    return;
+  }
+
+  res.json({
+    status: 200,
+    message: `Successfully found user with id ${_id}!`,
+    data,
   });
 };
 

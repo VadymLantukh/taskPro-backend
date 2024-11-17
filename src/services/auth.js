@@ -47,8 +47,20 @@ export const loginUser = async (payload) => {
   });
 };
 
+export const getUserById = async (id) => {
+  const data = await UsersCollection.findById(id).populate({
+    path: 'boards',
+    select: 'title icon backgroundImage',
+  });
+
+  return data;
+};
+
 export const updateUser = async (filter, payload, options = {}) => {
-  const currentUser = await UsersCollection.findOne(filter);
+  const currentUser = await UsersCollection.findOne(filter).populate({
+    path: 'boards',
+    select: 'title icon backgroundImage',
+  });
   if (!currentUser) throw createHttpError(404, 'Not found user');
 
   if (payload.theme && payload.theme === currentUser.theme) {

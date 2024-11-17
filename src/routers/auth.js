@@ -3,12 +3,17 @@ import { Router } from 'express';
 import { validateBody } from '../middlewares/validateBody.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
+  getUserController,
   loginUsersController,
   logoutUserController,
   registerUsersController,
   updateUserController,
 } from '../controllers/auth.js';
-import { loginUsersSchema, registerUsersSchema, updateUserSchema } from '../validation/auth.js';
+import {
+  loginUsersSchema,
+  registerUsersSchema,
+  updateUserSchema,
+} from '../validation/auth.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { upload } from '../middlewares/multer.js';
 import { authenticate } from '../middlewares/authenticate.js';
@@ -26,6 +31,8 @@ authRouter.post(
   validateBody(loginUsersSchema),
   ctrlWrapper(loginUsersController),
 );
+
+authRouter.get('/:id', isValidId, authenticate, ctrlWrapper(getUserController));
 
 authRouter.patch(
   '/:id',

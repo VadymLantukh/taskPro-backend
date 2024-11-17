@@ -2,36 +2,6 @@ import createHttpError from 'http-errors';
 import * as columnsServices from '../services/columns.js';
 import ColumnCollection from '../db/Columns.js';
 
-// export const getAllColumnsController = async (req, res, next) => {
-//   const boardId = req.params.boardId;
-//   const columns = await columnsServices.getColumns(boardId);
-
-//   if (!columns || columns.length === 0) {
-//     return next(createHttpError(404, 'No columns found.'));
-//   }
-
-//   res.json({
-//     status: 200,
-//     message: 'Successfully fetched columns.',
-//     data: columns,
-//   });
-// };
-
-// export const getColumnController = async (req, res, next) => {
-//   const columnId = req.params.id;
-//   const column = await columnsServices.getColumnById(columnId);
-
-//   if (!column) {
-//     return next(createHttpError(404, 'Column not found.'));
-//   }
-
-//   res.json({
-//     status: 200,
-//     message: 'Successfully fetched column.',
-//     data: column,
-//   });
-// };
-
 export const addColumnController = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { boardId } = req.body;

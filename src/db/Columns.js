@@ -22,10 +22,15 @@ const columnSchema = new Schema(
         ref: 'task',
       },
     ],
+    order: {
+      type: Number,
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true },
 );
 
+columnSchema.index({ boardId: 1, order: 1 }, { unique: true });
 const ColumnCollection = model('column', columnSchema);
 
 export default ColumnCollection;

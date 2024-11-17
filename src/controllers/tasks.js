@@ -2,7 +2,6 @@ import createHttpError from 'http-errors';
 import {
   checkColumn,
   deleteTask,
-  filterTasksByPriority,
   findOldColumnId,
   postTask,
   replaceTask,
@@ -86,37 +85,4 @@ export const deleteTaskController = async (req, res, next) => {
   }
 
   res.status(204).send();
-};
-
-export const filterTasksController = async (req, res, next) => {
-  const { priority } = req.query;
-  const { _id: userId } = req.user;
-
-  if (!priority) {
-    return next(createHttpError(400, 'Missing priority query parameter'));
-  }
-
-  const validPriorities = ['Without', 'Low', 'Medium', 'High'];
-  if (!validPriorities.includes(priority)) {
-    return next(
-      createHttpError(
-        400,
-        `Invalid priority value. Must be one of: ${validPriorities.join(', ')}`,
-      ),
-    );
-  }
-
-  const tasks = await filterTasksByPriority(priority, userId);
-
-  if (!tasks || tasks.length === 0) {
-    return next(
-      createHttpError(404, 'No tasks found with the specified priority'),
-    );
-  }
-
-  res.status(200).json({
-    status: 200,
-    message: 'Tasks filtered successfully',
-    data: tasks,
-  });
 };

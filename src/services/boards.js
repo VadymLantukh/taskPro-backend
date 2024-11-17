@@ -54,6 +54,9 @@ export const deleteBoard = async (filter) => {
   if (deletedBoard) {
     await ColumnCollection.deleteMany({ boardId: filter._id });
     await TasksCollection.deleteMany({ boardId: filter._id });
+    await UsersCollection.findOneAndUpdate(filter.userId, {
+      $pull: { boards: filter._id },
+    });
   }
 
   return deletedBoard;

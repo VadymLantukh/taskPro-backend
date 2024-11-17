@@ -26,12 +26,6 @@ export const replaceTask = async (oldColumn, newColumn, taskId) => {
   });
 };
 
-export const deleteTaskFromColumn = async (filter, taskId) => {
-  return await ColumnCollection.findOneAndUpdate(filter, {
-    $pull: { tasks: taskId },
-  });
-};
-
 export const checkColumn = async (filter) => {
   return await ColumnCollection.findOne(filter);
 };
@@ -47,14 +41,24 @@ export const updateTask = async (filter, payload) => {
   };
 };
 
-export const deleteTask = (filter) => TasksCollection.findByIdAndDelete(filter);
-
 export const findOldColumnId = async (_id) => {
   const data = await TasksCollection.findById(_id);
 
   const oldColumnId = data.columnId;
 
   return oldColumnId;
+};
+
+export const deleteTask = async (filter) => {
+  const deletedTask = await TasksCollection.findByIdAndDelete(filter);
+
+  if (deletedTask) {
+    await ColumnCollection.findOneAndUpdate(deletedTask.columnId, {
+      $pull: { tasks: filter._id },
+    });
+  }
+
+  return deletedTask;
 };
 
 export const filterTasksByPriority = async (priority, userId) => {

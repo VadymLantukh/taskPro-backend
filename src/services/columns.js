@@ -36,14 +36,14 @@ export const updateColumn = async (filter, payload) => {
   });
 };
 
-export const deleteColumn = async ({ _id, userId }) => {
-  const deletedColumn = await ColumnCollection.findOneAndDelete({
-    _id,
-    userId,
-  });
+export const deleteColumn = async (filter) => {
+  const deletedColumn = await ColumnCollection.findOneAndDelete(filter);
 
   if (deletedColumn) {
-    await TaskCollection.deleteMany({ columnId: _id });
+    await TaskCollection.deleteMany({ columnId: filter._id });
+    await BoardCollection.findOneAndUpdate(deletedColumn.boardId, {
+      $pull: { columns: filter._id },
+    });
   }
 
   return deletedColumn;

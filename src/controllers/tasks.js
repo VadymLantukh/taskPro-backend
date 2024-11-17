@@ -2,14 +2,12 @@ import createHttpError from 'http-errors';
 import {
   checkColumn,
   deleteTask,
-  deleteTaskFromColumn,
   filterTasksByPriority,
   findOldColumnId,
   postTask,
   replaceTask,
   updateTask,
 } from '../services/tasks.js';
-import { Types } from 'mongoose';
 
 export const postTaskController = async (req, res, next) => {
   const { _id: userId } = req.user;
@@ -77,19 +75,14 @@ export const updateTaskController = async (req, res, next) => {
   });
 };
 
-export const deleteTaskController = async (req, res) => {
+export const deleteTaskController = async (req, res, next) => {
   const { id } = req.params;
-  const { columnId } = req.body;
   const { _id: userId } = req.user;
 
-  const objectTaskId = new Types.ObjectId(id);
-
-  await deleteTaskFromColumn({ _id: columnId, userId }, objectTaskId);
-
-  const data = await deleteTask({ _id: id, userId, columnId });
+  const data = await deleteTask({ _id: id, userId });
 
   if (!data) {
-    throw new createHttpError(404, `Task with id:${id} not found`);
+    return next(createHttpError(404, `Task with id:${id} not found`));
   }
 
   res.status(204).send();

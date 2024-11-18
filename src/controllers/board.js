@@ -1,16 +1,17 @@
 import createHttpError from 'http-errors';
 
 import * as boardsServices from '../services/boards.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getBoardsController = async (req, res) => {
   const { _id: userId } = req.user;
 
-  const data = await boardsServices.getBoards(userId);
+  const boards = await boardsServices.getBoards(userId);
 
   res.json({
     status: 200,
     message: 'Successfully found boards!',
-    data,
+    boards,
   });
 };
 
@@ -18,7 +19,9 @@ export const getBoardController = async (req, res, next) => {
   const { id: _id } = req.params;
   const { _id: userId } = req.user;
 
-  const data = await boardsServices.getBoard({ _id, userId });
+  const filter = parseFilterParams(req.query);
+
+  const data = await boardsServices.getBoard({ _id, userId }, filter);
 
   if (!data) {
     next(createHttpError(404, `Board with id ${_id} not found!`));

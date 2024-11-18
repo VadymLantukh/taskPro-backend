@@ -35,7 +35,6 @@ columnsRouter.patch(
   '/:id',
   isValidId,
   validateBody(updateColumnSchema),
-  convertBoardId,
   ctrlWrapper(columnsController.updateColumnController),
 );
 columnsRouter.delete(

@@ -11,12 +11,15 @@ export const getBoards = async (userId) => {
   return boards;
 };
 
-export const getBoard = async (filter) => {
+export const getBoard = async (filter, taskFilter = {}) => {
   const board = await BoardCollection.findOne(filter).populate({
     path: 'columns',
+    select: '-userId -boardId',
     populate: {
       path: 'tasks',
       model: 'task',
+      select: '-userId -boardId -columnId',
+      match: taskFilter,
     },
   });
 
@@ -49,9 +52,12 @@ export const updateBoard = async (filter, payload, options = {}) => {
 
 export const deleteBoard = async (filter) => {
   const deletedBoard = await BoardCollection.findOneAndDelete(filter);
-  if (!deletedBoard) {
+  if (deletedBoard) {
     await ColumnCollection.deleteMany({ boardId: filter._id });
     await TasksCollection.deleteMany({ boardId: filter._id });
+    await UsersCollection.findOneAndUpdate(filter.userId, {
+      $pull: { boards: filter._id },
+    });
   }
 
   return deletedBoard;

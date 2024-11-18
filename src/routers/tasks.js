@@ -8,7 +8,6 @@ import {
   postTaskController,
   updateTaskController,
   deleteTaskController,
-  filterTasksController,
 } from '../controllers/tasks.js';
 
 const tasksRouter = Router();
@@ -26,7 +25,5 @@ tasksRouter.post(
 tasksRouter.patch('/:id', validateBody(updateTaskSchema), updateTaskController);
 
 tasksRouter.delete('/:id', deleteTaskController);
-
-tasksRouter.get('/filter', filterTasksController);
 
 export default tasksRouter;

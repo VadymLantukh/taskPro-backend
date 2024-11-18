@@ -1,4 +1,4 @@
-description: Server error
+description: Email in use
 content:
   application/json:
     schema:
@@ -9,7 +9,7 @@ content:
       properties:
         status:
           type: integer
-          example: 500
+          example: 409
         message:
           type: string
-          example: Server error
+          example: Email in use

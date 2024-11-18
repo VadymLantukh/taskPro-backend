@@ -14,11 +14,11 @@ export const getBoards = async (userId) => {
 export const getBoard = async (filter, taskFilter = {}) => {
   const board = await BoardCollection.findOne(filter).populate({
     path: 'columns',
-    select: '-userId -boardId',
+    select: '-userId',
     populate: {
       path: 'tasks',
       model: 'task',
-      select: '-userId -boardId -columnId',
+      select: '-userId',
       match: taskFilter,
     },
   });

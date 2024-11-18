@@ -5,15 +5,64 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description:
-    This is a documentation of TaskPro app
+  description: This is a documentation of TaskPro app
+
 tags:
   - name: Tasks
-    description: Operations about Tasks.
+    description: Operations about Tasks
+
 servers:
   - url: http://localhost:3000
   - url: https://task-manager-0qvm.onrender.com
+
 paths:
+  /auth/login:
+    post:
+      $ref: '../swagger/pathsAuth/postLogin.yaml'
+  /auth/register:
+    post:
+      $ref: '../swagger/pathsAuth/postRegister.yaml'
+  /auth/logout:
+    post:
+      $ref: '../swagger/pathsAuth/postLogout.yaml'
+  /auth/{id}:
+    get:
+      $ref: '../swagger/pathsAuth/{id}/get.yaml'
+    patch:
+      $ref: '../swagger/pathsAuth/{id}/patch.yaml'
+
+  /boards:
+    post:
+      $ref: '../swagger/pathsBoadrs/post.yaml'
+    get:
+      $ref: '../swagger/pathsBoadrs/get.yaml'
+  /boards/{id}:
+    get:
+      $ref: '../swagger/pathsBoadrs/{id}/get.yaml'
+    patch:
+      $ref: '../swagger/pathsBoadrs/{id}/patch.yaml'
+    delete:
+      $ref: '../swagger/pathsBoadrs/{id}/delete.yaml'
+
+  /columns:
+    get:
+      $ref: ../swagger/pathsColumn/get.yaml
+  /columns/{id}:
+    patch:
+      $ref: '../swagger/pathsColumn/{id}/patch.yaml'
+    delete:
+      $ref: '../swagger/pathsColumn/{id}/delete.yaml'
+
+  /tasks:
+    get:
+      $ref: ../swagger/pathsTasks/get.yaml
+  /tasks/{id}:
+    get:
+      $ref: '../swagger/pathsTasks/{id}/get.yaml'
+    patch:
+      $ref: '../swagger/pathsTasks/{id}/patch.yaml'
+    delete:
+      $ref: '../swagger/pathsTasks/{id}/delete.yaml'
 
 components:
   securitySchemes:

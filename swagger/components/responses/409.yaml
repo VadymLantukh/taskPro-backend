@@ -1,4 +1,4 @@
-description: Forbidden error
+description: Email in use
 content:
   application/json:
     schema:
@@ -6,11 +6,10 @@ content:
       required:
         - status
         - message
-        - data
       properties:
         status:
           type: integer
-          example: 403
+          example: 409
         message:
           type: string
-          example: Forbidden
+          example: Email in use

@@ -1,0 +1,54 @@
+tags:
+  - Tasks
+summary: Register user
+operationId: registerUser
+description: 'register a user with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            description: 'user name'
+            type: string
+            example: 'DmytroBoyko'
+          email:
+            description: 'User email'
+            type: string
+            example: 'vadym123@gmail.com'
+          password:
+            description: 'Password user'
+            type: string
+            example: '123556789'
+responses:
+  '201':
+    description: 'Register a user'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully register a user!'
+            data:
+              type: object
+              $ref: ../components/schemas/user.yaml
+  '409':
+    $ref: ../components/responses/409.yaml
+  '500':
+    $ref: ../components/responses/500.yaml

@@ -1,0 +1,40 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+  - password
+properties:
+  _id:
+    description: "User id"
+    type: string
+    example: 673712067502f11dfed72875
+  name:
+    description: 'User name'
+    type: string
+    example: 'Dmytro Boyko'
+  email:
+    description: 'User email'
+    type: string
+    example: 'dmytro3@example.com'
+  password:
+    description: 'Password user'
+    type: string
+    example: '123556789'
+  theme:
+    description: 'Theme site user'
+    type: string
+    enum: ['light', 'dark', 'violet']
+    example: 'light'
+  avatar:
+    description: 'Avatar user'
+    type: string
+    format: binary
+  boards:
+    description: 'Boards user'
+    type: array
+    items:
+      description: 'Array of board IDs associated with the user'
+      type: string
+      format: objectId
+      example: ['672331785da3c1f17105b405', '672331785da3c1f17105b406']

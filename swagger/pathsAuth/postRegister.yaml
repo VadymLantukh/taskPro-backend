@@ -16,29 +16,20 @@ requestBody:
           - password
         properties:
           name:
-            description: "user name"
+            description: 'user name'
             type: string
             example: 'DmytroBoyko'
           email:
-            description: "User email"
+            description: 'User email'
             type: string
             example: 'vadym123@gmail.com'
           password:
-            description: "Password user"
+            description: 'Password user'
             type: string
             example: '123556789'
-          theme:
-            description: "Theme site user"
-            type: string
-            enum: ['light', 'dark', 'violet']
-            example: "light"
-          avatar:
-            description: 'Avatar user'
-            type: string
-            format: binary
 responses:
   '201':
-    description: Register a user
+    description: 'Register a user'
     content:
       application/json:
         schema:
@@ -53,7 +44,7 @@ responses:
               example: 201
             message:
               type: string
-              example: Successfully register a user!
+              example: 'Successfully register a user!'
             data:
               type: object
               $ref: ../components/schemas/user.yaml
@@ -61,4 +52,3 @@ responses:
     $ref: ../components/responses/409.yaml
   '500':
     $ref: ../components/responses/500.yaml
-

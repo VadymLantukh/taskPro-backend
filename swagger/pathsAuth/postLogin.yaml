@@ -1,0 +1,53 @@
+tags:
+  - Tasks
+summary: Login user
+operationId: loginUser
+description: 'login a user with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: 'User email'
+            type: string
+            example: 'vadym123@gmail.com'
+          password:
+            description: 'Password user'
+            type: string
+            example: '123556789'
+responses:
+  '200':
+    description: 'Login a user'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully login a user!'
+            data:
+              type: object
+              $ref: ../components/schemas/user.yaml
+  '401':
+    $ref: ../components/responses/401.yaml
+  '403':
+    $ref: ../components/responses/403.yaml
+  '404':
+    $ref: ../components/responses/404.yaml
+  '500':
+    $ref: ../components/responses/500.yaml

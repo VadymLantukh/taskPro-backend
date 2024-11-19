@@ -25,6 +25,9 @@ paths:
   /auth/logout:
     post:
       $ref: '../swagger/pathsAuth/postLogout.yaml'
+  /auth/refresh:
+    post:
+      $ref: '../swagger/pathsAuth/postRefresh.yaml'
   /auth/{id}:
     get:
       $ref: '../swagger/pathsAuth/{id}/get.yaml'

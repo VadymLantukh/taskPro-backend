@@ -171,10 +171,6 @@
                     "message": {
                       "type": "string",
                       "example": "Successfully register a user!"
-                    },
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/user"
                     }
                   }
                 }
@@ -228,6 +224,98 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Refresh user",
+        "operationId": "refreshUser",
+        "description": "Refresh a user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "accessToken",
+                  "refreshToken",
+                  "accessTokenValidUntil",
+                  "refreshTokenValidUntil"
+                ],
+                "properties": {
+                  "userId": {
+                    "description": "User userId",
+                    "type": "string",
+                    "example": "673712067502f11dfed72875"
+                  },
+                  "accessToken": {
+                    "description": "accessToken user",
+                    "type": "string",
+                    "example": "3Qqly8GeJgICEVIA+lgr/M32j+FhiVX2v6G70//4"
+                  },
+                  "refreshToken": {
+                    "description": "refreshToken user",
+                    "type": "string",
+                    "example": "GzAHVum5IB3Xiyt88ypjT5oXV8SLjHEhpCwdJDz3"
+                  },
+                  "accessTokenValidUntil": {
+                    "description": "accessTokenValidUntil user",
+                    "type": "string",
+                    "example": "2024-11-16T14:56:06.528+00:00"
+                  },
+                  "refreshTokenValidUntil": {
+                    "description": "refreshTokenValidUntil user",
+                    "type": "string",
+                    "example": "2024-12-15T14:56:06.528+00:00"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully refreshed a session!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully refreshed a session!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/sessions"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           }
         }
       }
@@ -388,11 +476,687 @@
               }
             }
           },
-          "401": {
-            "$ref": "#/components/responses/401"
+          "404": {
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/boards": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Create a new board",
+        "operationId": "createBoard",
+        "description": "Create a new board for a user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/board"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully created a new board",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created a board!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/board"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get list of boards",
+        "operationId": "getBoards",
+        "description": "Retrieve a list of all boards for a specific user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved boards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "boards"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found boards!"
+                    },
+                    "boards": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/board"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/boards/{id}": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get board by id",
+        "operationId": "getBoard",
+        "description": "Retrieve a specific board by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63e9a7752d25b75c0f233a7f"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved board data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found board!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/board"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update a board",
+        "operationId": "updateBoard",
+        "description": "Update an existing board.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63e9a7752d25b75c0f233a7f"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/board"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated board",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated board!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/board"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Delete a board",
+        "operationId": "deleteBoard",
+        "description": "Delete an existing board by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63e9a7752d25b75c0f233a7f"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted board"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/columns": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Create a new column",
+        "operationId": "createColumn",
+        "description": "Create a new column for a specific board.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/column"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Column successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Column successfully created."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/column"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/columns/{id}": {
+      "patch": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update a column",
+        "operationId": "updateColumn",
+        "description": "Update an existing column by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63e9a7752d25b75c0f233a7f"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/column"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Column successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Column successfully updated."
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/column"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Delete a column",
+        "operationId": "deleteColumn",
+        "description": "Delete a column by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "63e9a7752d25b75c0f233a7f"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Column successfully deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Create a new task",
+        "operationId": "createTask",
+        "description": "Create a new task for a specific column in a board.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "description",
+                  "columnId",
+                  "boardId",
+                  "userId"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Design homepage"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Create a homepage layout."
+                  },
+                  "priority": {
+                    "type": "string",
+                    "enum": [
+                      "Without",
+                      "Low",
+                      "Medium",
+                      "High"
+                    ],
+                    "example": "High"
+                  },
+                  "deadline": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-12-01T00:00:00Z"
+                  },
+                  "columnId": {
+                    "type": "string",
+                    "format": "objectId",
+                    "example": "648adad50c7f3f1c0c4f8a9c"
+                  },
+                  "boardId": {
+                    "type": "string",
+                    "format": "objectId",
+                    "example": "648adad50c7f3f1c0c4f8a9d"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Task created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "patch": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update a task",
+        "operationId": "updateTask",
+        "description": "Update an existing task by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "objectId"
+            },
+            "description": "The ID of the task to update."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Update homepage design"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Modify the current homepage layout."
+                  },
+                  "priority": {
+                    "type": "string",
+                    "enum": [
+                      "Without",
+                      "Low",
+                      "Medium",
+                      "High"
+                    ],
+                    "example": "Medium"
+                  },
+                  "deadline": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-12-15T00:00:00Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Task updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/task"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Delete a task",
+        "operationId": "deleteTask",
+        "description": "Delete a task by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "objectId"
+            },
+            "description": "The ID of the task to delete."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Task deleted successfully"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
@@ -409,11 +1173,17 @@
       "user": {
         "type": "object",
         "required": [
+          "_id",
           "name",
           "email",
           "password"
         ],
         "properties": {
+          "_id": {
+            "description": "User id",
+            "type": "string",
+            "example": "673712067502f11dfed72875"
+          },
           "name": {
             "description": "User name",
             "type": "string",
@@ -456,6 +1226,211 @@
                 "672331785da3c1f17105b406"
               ]
             }
+          }
+        }
+      },
+      "sessions": {
+        "type": "object",
+        "required": [
+          "_id",
+          "userId",
+          "accessToken",
+          "refreshToken",
+          "accessTokenValidUntil",
+          "refreshTokenValidUntil"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User id in MongoDB",
+            "type": "string",
+            "example": "6737610600a6d96eb9911056"
+          },
+          "userId": {
+            "description": "UserId user",
+            "type": "string",
+            "example": "673760f000a6d96eb9911052"
+          },
+          "accessToken": {
+            "description": "AccessToken user",
+            "type": "string",
+            "example": "3Qqly8GeJgICEVIA+lgr/M32j+FhiVX2v6G70//4"
+          },
+          "refreshToken": {
+            "description": "RefreshToken user",
+            "type": "string",
+            "example": "GzAHVum5IB3Xiyt88ypjT5oXV8SLjHEhpCwdJDz3"
+          },
+          "accessTokenValidUntil": {
+            "description": "AccessTokenValidUntil user",
+            "type": "number",
+            "example": "2024-11-16T14:56:06.528+00:00"
+          },
+          "refreshTokenValidUntil": {
+            "description": "RefreshTokenValidUntil user",
+            "type": "number",
+            "example": "2024-12-15T14:56:06.528+00:00"
+          }
+        }
+      },
+      "board": {
+        "type": "object",
+        "required": [
+          "title",
+          "userId"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "63e9a7752d25b75c0f233a7f"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "Project Management"
+          },
+          "backgroundImage": {
+            "type": "string",
+            "description": "Background image",
+            "enum": [
+              "bgImage_1",
+              "bgImage_2",
+              "bgImage_3",
+              "bgImage_4",
+              "bgImage_5",
+              "bgImage_6",
+              "bgImage_7",
+              "bgImage_8",
+              "bgImage_9",
+              "bgImage_10",
+              "bgImage_11",
+              "bgImage_12",
+              "bgImage_13",
+              "bgImage_14",
+              "bgImage_15"
+            ],
+            "example": "bgImage_1"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Board's icon",
+            "enum": [
+              "icon_1",
+              "icon_2",
+              "icon_3",
+              "icon_4",
+              "icon_5",
+              "icon_6",
+              "icon_7",
+              "icon_8"
+            ],
+            "example": "icon_1"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Reference to columns' ObjectId",
+              "example": "65e4decdd286b30065d54af9"
+            }
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's id",
+            "example": "63e9a7752d25b75c0f233a7f"
+          }
+        }
+      },
+      "column": {
+        "type": "object",
+        "required": [
+          "title",
+          "boardId",
+          "userId",
+          "order"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "64ca67e7ae7f10c88b598384"
+          },
+          "title": {
+            "type": "string",
+            "example": "To Do"
+          },
+          "boardId": {
+            "type": "string",
+            "example": "64ca67e7ae7f10c88b598385"
+          },
+          "userId": {
+            "type": "string",
+            "example": "64ca67e7ae7f10c88b598386"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "64ca67e7ae7f10c88b598387"
+            }
+          },
+          "order": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "task": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "userId",
+          "boardId",
+          "columnId"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "objectId",
+            "example": "648adad50c7f3f1c0c4f8a9b"
+          },
+          "title": {
+            "type": "string",
+            "example": "Design homepage"
+          },
+          "description": {
+            "type": "string",
+            "example": "Create a new homepage layout for the website."
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "Without",
+              "Low",
+              "Medium",
+              "High"
+            ],
+            "example": "High"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-12-01T00:00:00Z"
+          },
+          "userId": {
+            "type": "string",
+            "format": "objectId",
+            "example": "648adad50c7f3f1c0c4f8a9e"
+          },
+          "boardId": {
+            "type": "string",
+            "format": "objectId",
+            "example": "648adad50c7f3f1c0c4f8a9d"
+          },
+          "columnId": {
+            "type": "string",
+            "format": "objectId",
+            "example": "648adad50c7f3f1c0c4f8a9c"
           }
         }
       }

@@ -6,6 +6,7 @@ import {
   getUserController,
   loginUsersController,
   logoutUserController,
+  refreshUsersSessionController,
   registerUsersController,
   updateUserController,
 } from '../controllers/auth.js';
@@ -42,6 +43,8 @@ authRouter.patch(
   validateBody(updateUserSchema),
   ctrlWrapper(updateUserController),
 );
+
+authRouter.post('/refresh', ctrlWrapper(refreshUsersSessionController));
 
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 

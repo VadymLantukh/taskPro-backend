@@ -1,0 +1,44 @@
+tags:
+  - Tasks
+summary: Update a board
+operationId: updateBoard
+description: Update an existing board.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '63e9a7752d25b75c0f233a7f'
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/board.yaml'
+responses:
+  '200':
+    description: Successfully updated board
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully updated board!'
+            data:
+              $ref: '../../components/schemas/board.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'

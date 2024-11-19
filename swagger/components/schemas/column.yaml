@@ -1,0 +1,27 @@
+type: object
+required:
+  - title
+  - boardId
+  - userId
+  - order
+properties:
+  id:
+    type: string
+    example: '64ca67e7ae7f10c88b598384'
+  title:
+    type: string
+    example: 'To Do'
+  boardId:
+    type: string
+    example: '64ca67e7ae7f10c88b598385'
+  userId:
+    type: string
+    example: '64ca67e7ae7f10c88b598386'
+  tasks:
+    type: array
+    items:
+      type: string
+      example: '64ca67e7ae7f10c88b598387'
+  order:
+    type: number
+    example: 1

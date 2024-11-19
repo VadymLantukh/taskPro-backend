@@ -1,0 +1,60 @@
+tags:
+  - Tasks
+summary: Update a task
+operationId: updateTask
+description: Update an existing task by its ID.
+security:
+  - bearerAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+      format: objectId
+    description: The ID of the task to update.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+            example: 'Update homepage design'
+          description:
+            type: string
+            example: 'Modify the current homepage layout.'
+          priority:
+            type: string
+            enum: ['Without', 'Low', 'Medium', 'High']
+            example: 'Medium'
+          deadline:
+            type: string
+            format: date-time
+            example: '2024-12-15T00:00:00Z'
+responses:
+  '200':
+    description: Task updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Task updated successfully'
+            data:
+              $ref: '../../components/schemas/task.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'

@@ -1,8 +1,8 @@
 tags:
   - Tasks
-summary: Create a new board
-operationId: createBoard
-description: Create a new board for a user.
+summary: Create a new column
+operationId: createColumn
+description: Create a new column for a specific board.
 security:
   - bearerAuth: []
 requestBody:
@@ -10,10 +10,10 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: '../components/schemas/board.yaml'
+        $ref: '../components/schemas/column.yaml'
 responses:
   '201':
-    description: Successfully created a new board
+    description: Column successfully created
     content:
       application/json:
         schema:
@@ -28,8 +28,10 @@ responses:
               example: 201
             message:
               type: string
-              example: 'Successfully created a board!'
+              example: 'Column successfully created.'
             data:
-              $ref: '../components/schemas/board.yaml'
+              $ref: '../components/schemas/column.yaml'
   '401':
     $ref: '../components/responses/401.yaml'
+  '404':
+    $ref: '../components/responses/404.yaml'

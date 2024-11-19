@@ -1,0 +1,60 @@
+type: object
+required:
+  - title
+  - userId
+properties:
+  _id:
+    type: string
+    description: "Board's id"
+    example: 63e9a7752d25b75c0f233a7f
+  title:
+    type: string
+    description: "Board's title"
+    example: 'Project Management'
+  backgroundImage:
+    type: string
+    description: 'Background image'
+    enum:
+      [
+        'bgImage_1',
+        'bgImage_2',
+        'bgImage_3',
+        'bgImage_4',
+        'bgImage_5',
+        'bgImage_6',
+        'bgImage_7',
+        'bgImage_8',
+        'bgImage_9',
+        'bgImage_10',
+        'bgImage_11',
+        'bgImage_12',
+        'bgImage_13',
+        'bgImage_14',
+        'bgImage_15',
+      ]
+    example: 'bgImage_1'
+  icon:
+    type: string
+    description: "Board's icon"
+    enum:
+      [
+        'icon_1',
+        'icon_2',
+        'icon_3',
+        'icon_4',
+        'icon_5',
+        'icon_6',
+        'icon_7',
+        'icon_8',
+      ]
+    example: 'icon_1'
+  columns:
+    type: array
+    items:
+      type: string
+      description: "Reference to columns' ObjectId"
+      example: '65e4decdd286b30065d54af9'
+  userId:
+    type: string
+    description: "User's id"
+    example: '63e9a7752d25b75c0f233a7f'

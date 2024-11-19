@@ -45,8 +45,8 @@ paths:
       $ref: '../swagger/pathsBoadrs/{id}/delete.yaml'
 
   /columns:
-    get:
-      $ref: ../swagger/pathsColumn/get.yaml
+    post:
+      $ref: ../swagger/pathsColumn/post.yaml
   /columns/{id}:
     patch:
       $ref: '../swagger/pathsColumn/{id}/patch.yaml'
@@ -54,11 +54,9 @@ paths:
       $ref: '../swagger/pathsColumn/{id}/delete.yaml'
 
   /tasks:
-    get:
-      $ref: ../swagger/pathsTasks/get.yaml
+    post:
+      $ref: ../swagger/pathsTasks/post.yaml
   /tasks/{id}:
-    get:
-      $ref: '../swagger/pathsTasks/{id}/get.yaml'
     patch:
       $ref: '../swagger/pathsTasks/{id}/patch.yaml'
     delete:

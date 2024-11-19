@@ -1,0 +1,38 @@
+type: object
+required:
+  - title
+  - description
+  - userId
+  - boardId
+  - columnId
+properties:
+  _id:
+    type: string
+    format: objectId
+    example: '648adad50c7f3f1c0c4f8a9b'
+  title:
+    type: string
+    example: 'Design homepage'
+  description:
+    type: string
+    example: 'Create a new homepage layout for the website.'
+  priority:
+    type: string
+    enum: ['Without', 'Low', 'Medium', 'High']
+    example: 'High'
+  deadline:
+    type: string
+    format: date-time
+    example: '2024-12-01T00:00:00Z'
+  userId:
+    type: string
+    format: objectId
+    example: '648adad50c7f3f1c0c4f8a9e'
+  boardId:
+    type: string
+    format: objectId
+    example: '648adad50c7f3f1c0c4f8a9d'
+  columnId:
+    type: string
+    format: objectId
+    example: '648adad50c7f3f1c0c4f8a9c'

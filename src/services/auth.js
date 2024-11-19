@@ -47,7 +47,7 @@ export const loginUser = async (payload) => {
   });
 
   return {
-    ...session,
+    ...session.toObject(),
     userId: user._id,
   };
 };

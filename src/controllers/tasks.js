@@ -27,13 +27,10 @@ export const postTaskController = async (req, res, next) => {
 
   const newTask = await postTask(req.body);
 
-  const { _id, title, description, priority, deadline, createdAt, updatedAt } =
-    newTask;
-
   res.status(201).json({
     status: 201,
     message: 'Task created successfully',
-    data: { _id, title, description, priority, deadline, createdAt, updatedAt },
+    data: newTask,
   });
 };
 

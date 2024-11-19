@@ -22,30 +22,30 @@ servers:
   - url: https://task-manager-0qvm.onrender.com
 
 paths:
-  /auth/login:
+  /pathsAuth/postLogin:
     post:
       $ref: '../swagger/pathsAuth/postLogin.yaml'
-  /auth/register:
+  /pathsAuth/postRegister:
     post:
       $ref: '../swagger/pathsAuth/postRegister.yaml'
-  /auth/logout:
+  /pathsAuth/postLogout:
     post:
       $ref: '../swagger/pathsAuth/postLogout.yaml'
-  /auth/refresh:
+  /pathsAuth/postRefresh:
     post:
       $ref: '../swagger/pathsAuth/postRefresh.yaml'
-  /auth/{id}:
+  /pathsAuth/{id}:
     get:
       $ref: '../swagger/pathsAuth/{id}/get.yaml'
     patch:
       $ref: '../swagger/pathsAuth/{id}/patch.yaml'
 
-  /boards:
+  /pathsBoadrs:
     post:
       $ref: '../swagger/pathsBoadrs/post.yaml'
     get:
       $ref: '../swagger/pathsBoadrs/get.yaml'
-  /boards/{id}:
+  /pathsBoadrs/{id}:
     get:
       $ref: '../swagger/pathsBoadrs/{id}/get.yaml'
     patch:
@@ -53,19 +53,19 @@ paths:
     delete:
       $ref: '../swagger/pathsBoadrs/{id}/delete.yaml'
 
-  /columns:
+  /pathsColumn:
     post:
       $ref: ../swagger/pathsColumn/post.yaml
-  /columns/{id}:
+  /pathsColumn/{id}:
     patch:
       $ref: '../swagger/pathsColumn/{id}/patch.yaml'
     delete:
       $ref: '../swagger/pathsColumn/{id}/delete.yaml'
 
-  /tasks:
+  /pathsTasks:
     post:
       $ref: ../swagger/pathsTasks/post.yaml
-  /tasks/{id}:
+  /pathsTasks/{id}:
     patch:
       $ref: '../swagger/pathsTasks/{id}/patch.yaml'
     delete:

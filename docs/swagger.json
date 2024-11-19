@@ -19,15 +19,27 @@
   ],
   "tags": [
     {
+      "name": "Authentication",
+      "description": "Operations related to authentication"
+    },
+    {
+      "name": "Boards",
+      "description": "Operations related to boards"
+    },
+    {
+      "name": "Columns",
+      "description": "Operations related to columns"
+    },
+    {
       "name": "Tasks",
-      "description": "Operations about Tasks"
+      "description": "Operations related to tasks"
     }
   ],
   "paths": {
-    "/auth/login": {
+    "/pathsAuth/postLogin": {
       "post": {
         "tags": [
-          "Tasks"
+          "Authentication"
         ],
         "summary": "Login user",
         "operationId": "loginUser",
@@ -107,10 +119,10 @@
         }
       }
     },
-    "/auth/register": {
+    "/pathsAuth/postRegister": {
       "post": {
         "tags": [
-          "Tasks"
+          "Authentication"
         ],
         "summary": "Register user",
         "operationId": "registerUser",
@@ -186,10 +198,10 @@
         }
       }
     },
-    "/auth/logout": {
+    "/pathsAuth/postLogout": {
       "post": {
         "tags": [
-          "Tasks"
+          "Authentication"
         ],
         "summary": "Logout user",
         "operationId": "logoutUser",
@@ -228,10 +240,10 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/pathsAuth/postRefresh": {
       "post": {
         "tags": [
-          "Tasks"
+          "Authentication"
         ],
         "summary": "Refresh user",
         "operationId": "refreshUser",
@@ -320,10 +332,10 @@
         }
       }
     },
-    "/auth/{id}": {
+    "/pathsAuth/{id}": {
       "get": {
         "tags": [
-          "Tasks"
+          "Authentication"
         ],
         "summary": "Get user by id",
         "operationId": "getUser",
@@ -384,7 +396,7 @@
       },
       "patch": {
         "tags": [
-          "Tasks"
+          "Authentication"
         ],
         "summary": "update user by id",
         "operationId": "updateUser",
@@ -485,10 +497,10 @@
         }
       }
     },
-    "/boards": {
+    "/pathsBoadrs": {
       "post": {
         "tags": [
-          "Tasks"
+          "Boards"
         ],
         "summary": "Create a new board",
         "operationId": "createBoard",
@@ -544,7 +556,7 @@
       },
       "get": {
         "tags": [
-          "Tasks"
+          "Boards"
         ],
         "summary": "Get list of boards",
         "operationId": "getBoards",
@@ -592,10 +604,10 @@
         }
       }
     },
-    "/boards/{id}": {
+    "/pathsBoadrs/{id}": {
       "get": {
         "tags": [
-          "Tasks"
+          "Boards"
         ],
         "summary": "Get board by id",
         "operationId": "getBoard",
@@ -655,7 +667,7 @@
       },
       "patch": {
         "tags": [
-          "Tasks"
+          "Boards"
         ],
         "summary": "Update a board",
         "operationId": "updateBoard",
@@ -725,7 +737,7 @@
       },
       "delete": {
         "tags": [
-          "Tasks"
+          "Boards"
         ],
         "summary": "Delete a board",
         "operationId": "deleteBoard",
@@ -759,10 +771,10 @@
         }
       }
     },
-    "/columns": {
+    "/pathsColumn": {
       "post": {
         "tags": [
-          "Tasks"
+          "Columns"
         ],
         "summary": "Create a new column",
         "operationId": "createColumn",
@@ -820,10 +832,10 @@
         }
       }
     },
-    "/columns/{id}": {
+    "/pathsColumn/{id}": {
       "patch": {
         "tags": [
-          "Tasks"
+          "Columns"
         ],
         "summary": "Update a column",
         "operationId": "updateColumn",
@@ -893,7 +905,7 @@
       },
       "delete": {
         "tags": [
-          "Tasks"
+          "Columns"
         ],
         "summary": "Delete a column",
         "operationId": "deleteColumn",
@@ -927,7 +939,7 @@
         }
       }
     },
-    "/tasks": {
+    "/pathsTasks": {
       "post": {
         "tags": [
           "Tasks"
@@ -1027,7 +1039,7 @@
         }
       }
     },
-    "/tasks/{id}": {
+    "/pathsTasks/{id}": {
       "patch": {
         "tags": [
           "Tasks"

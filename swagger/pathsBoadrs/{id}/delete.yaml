@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Boards
 summary: Delete a board
 operationId: deleteBoard
 description: Delete an existing board by its ID.

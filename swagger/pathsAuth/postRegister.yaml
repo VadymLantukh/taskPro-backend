@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Authentication
 summary: Register user
 operationId: registerUser
 description: 'register a user with payload'

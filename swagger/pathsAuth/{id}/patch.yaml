@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Authentication
 summary: update user by id
 operationId: updateUser
 description: 'update user information by id'

@@ -8,8 +8,14 @@ info:
   description: This is a documentation of TaskPro app
 
 tags:
+  - name: Authentication
+    description: Operations related to authentication
+  - name: Boards
+    description: Operations related to boards
+  - name: Columns
+    description: Operations related to columns
   - name: Tasks
-    description: Operations about Tasks
+    description: Operations related to tasks
 
 servers:
   - url: http://localhost:3000

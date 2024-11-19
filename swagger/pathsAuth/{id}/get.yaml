@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Authentication
 summary: Get user by id
 operationId: getUser
 description: 'Get user information by id'

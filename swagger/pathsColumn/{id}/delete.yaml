@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Columns
 summary: Delete a column
 operationId: deleteColumn
 description: Delete a column by its ID.

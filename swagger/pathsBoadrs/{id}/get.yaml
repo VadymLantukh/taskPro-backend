@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Boards
 summary: Get board by id
 operationId: getBoard
 description: Retrieve a specific board by its ID.

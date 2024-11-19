@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Authentication
 summary: Refresh user
 operationId: refreshUser
 description: 'Refresh a user'

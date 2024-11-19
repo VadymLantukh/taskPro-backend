@@ -5,6 +5,7 @@ import {
   getUserById,
   loginUser,
   logoutUser,
+  refreshUserSession,
   registerUser,
   updateUser,
 } from '../services/auth.js';
@@ -24,12 +25,11 @@ const setupSession = (res, session) => {
 };
 
 export const registerUsersController = async (req, res) => {
-  const user = await registerUser(req.body);
+  await registerUser(req.body);
 
   res.status(201).json({
     status: 201,
     message: 'Successfuly registered a user!',
-    data: user,
   });
 };
 
@@ -43,6 +43,7 @@ export const loginUsersController = async (req, res) => {
     message: 'Seccessfuly logged in an user',
     data: {
       accessToken: session.accessToken,
+      userId: session.userId,
     },
   });
 };
@@ -88,6 +89,23 @@ export const updateUserController = async (req, res) => {
     status: 200,
     message: 'Successfully patched a user profile!',
     data: result.user,
+  });
+};
+
+export const refreshUsersSessionController = async (req, res) => {
+  const session = await refreshUserSession({
+    sessionId: req.cookies.sessionId,
+    refreshToken: req.cookies.refreshToken,
+  });
+
+  setupSession(res, session);
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully refreshed a session!',
+    data: {
+      accessToken: session.accessToken,
+    },
   });
 };
 

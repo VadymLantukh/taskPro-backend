@@ -9,6 +9,9 @@ import {
   updateTaskController,
   deleteTaskController,
 } from '../controllers/tasks.js';
+import { isValidId } from '../middlewares/isValidId.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { isValidColumnId } from '../middlewares/isValidColumnId.js';
 
 const tasksRouter = Router();
 
@@ -16,14 +19,21 @@ tasksRouter.use(authenticate);
 
 tasksRouter.post(
   '/',
+  isValidColumnId,
   validateBody(createTaskSchema),
   convertBoardId,
   convertColumnId,
-  postTaskController,
+  ctrlWrapper(postTaskController),
 );
 
-tasksRouter.patch('/:id', validateBody(updateTaskSchema), updateTaskController);
+tasksRouter.patch(
+  '/:id',
+  isValidId,
+  validateBody(updateTaskSchema),
+  isValidColumnId,
+  ctrlWrapper(updateTaskController),
+);
 
-tasksRouter.delete('/:id', deleteTaskController);
+tasksRouter.delete('/:id', isValidId, ctrlWrapper(deleteTaskController));
 
 export default tasksRouter;

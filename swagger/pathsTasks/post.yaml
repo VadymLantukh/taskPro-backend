@@ -1,0 +1,64 @@
+tags:
+  - Tasks
+summary: Create a new task
+operationId: createTask
+description: Create a new task for a specific column in a board.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - title
+          - description
+          - columnId
+          - boardId
+          - userId
+        properties:
+          title:
+            type: string
+            example: 'Design homepage'
+          description:
+            type: string
+            example: 'Create a homepage layout.'
+          priority:
+            type: string
+            enum: ['Without', 'Low', 'Medium', 'High']
+            example: 'High'
+          deadline:
+            type: string
+            format: date-time
+            example: '2024-12-01T00:00:00Z'
+          columnId:
+            type: string
+            format: objectId
+            example: '648adad50c7f3f1c0c4f8a9c'
+          boardId:
+            type: string
+            format: objectId
+            example: '648adad50c7f3f1c0c4f8a9d'
+responses:
+  '201':
+    description: Task created successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Task created successfully'
+            data:
+              $ref: '../components/schemas/task.yaml'
+  '401':
+    $ref: '../components/responses/401.yaml'

@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Authentication
 summary: Logout user
 operationId: logoutUser
 description: 'logout a user'

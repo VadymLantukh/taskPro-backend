@@ -1,0 +1,62 @@
+tags:
+  - Authentication
+summary: Refresh user
+operationId: refreshUser
+description: 'Refresh a user'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - userId
+          - accessToken
+          - refreshToken
+          - accessTokenValidUntil
+          - refreshTokenValidUntil
+        properties:
+          userId:
+            description: 'User userId'
+            type: string
+            example: '673712067502f11dfed72875'
+          accessToken:
+            description: 'accessToken user'
+            type: string
+            example: '3Qqly8GeJgICEVIA+lgr/M32j+FhiVX2v6G70//4'
+          refreshToken:
+            description: 'refreshToken user'
+            type: string
+            example: 'GzAHVum5IB3Xiyt88ypjT5oXV8SLjHEhpCwdJDz3'
+          accessTokenValidUntil:
+            description: 'accessTokenValidUntil user'
+            type: string
+            example: 2024-11-16T14:56:06.528+00:00
+          refreshTokenValidUntil:
+            description: 'refreshTokenValidUntil user'
+            type: string
+            example: 2024-12-15T14:56:06.528+00:00
+responses:
+  '200':
+    description: 'Successfully refreshed a session!'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully refreshed a session!'
+            data:
+              type: object
+              $ref: ../components/schemas/sessions.yaml
+  '401':
+    $ref: ../components/responses/401.yaml

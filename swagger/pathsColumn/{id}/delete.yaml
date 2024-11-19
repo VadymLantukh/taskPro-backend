@@ -1,0 +1,21 @@
+tags:
+  - Columns
+summary: Delete a column
+operationId: deleteColumn
+description: Delete a column by its ID.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '63e9a7752d25b75c0f233a7f'
+responses:
+  '204':
+    description: Column successfully deleted
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'

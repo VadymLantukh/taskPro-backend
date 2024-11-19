@@ -1,0 +1,33 @@
+type: object
+required:
+  - _id
+  - userId
+  - accessToken
+  - refreshToken
+  - accessTokenValidUntil
+  - refreshTokenValidUntil
+properties:
+  _id:
+    description: 'User id in MongoDB'
+    type: string
+    example: 6737610600a6d96eb9911056
+  userId:
+    description: 'UserId user'
+    type: string
+    example: '673760f000a6d96eb9911052'
+  accessToken:
+    description: 'AccessToken user'
+    type: string
+    example: '3Qqly8GeJgICEVIA+lgr/M32j+FhiVX2v6G70//4'
+  refreshToken:
+    description: 'RefreshToken user'
+    type: string
+    example: 'GzAHVum5IB3Xiyt88ypjT5oXV8SLjHEhpCwdJDz3'
+  accessTokenValidUntil:
+    description: 'AccessTokenValidUntil user'
+    type: number
+    example: 2024-11-16T14:56:06.528+00:00
+  refreshTokenValidUntil:
+    description: 'RefreshTokenValidUntil user'
+    type: number
+    example: 2024-12-15T14:56:06.528+00:00

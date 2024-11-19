@@ -1,5 +1,5 @@
 tags:
-  - Tasks
+  - Authentication
 summary: Register user
 operationId: registerUser
 description: 'register a user with payload'
@@ -45,9 +45,6 @@ responses:
             message:
               type: string
               example: 'Successfully register a user!'
-            data:
-              type: object
-              $ref: ../components/schemas/user.yaml
   '409':
     $ref: ../components/responses/409.yaml
   '500':

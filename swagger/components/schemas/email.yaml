@@ -1,0 +1,23 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+  - comment
+properties:
+  _id:
+    description: 'User id'
+    type: string
+    example: 673712067502f11dfed72875
+  name:
+    description: 'User name'
+    type: string
+    example: 'Dmytro Boyko'
+  email:
+    description: 'User email'
+    type: string
+    example: 'dmytro3@example.com'
+  comment:
+    description: 'Comment user'
+    type: string
+    example: 'I need help'

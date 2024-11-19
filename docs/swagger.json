@@ -33,10 +33,14 @@
     {
       "name": "Tasks",
       "description": "Operations related to tasks"
+    },
+    {
+      "name": "Email",
+      "description": "Operations related to email"
     }
   ],
   "paths": {
-    "/pathsAuth/postLogin": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Authentication"
@@ -119,7 +123,7 @@
         }
       }
     },
-    "/pathsAuth/postRegister": {
+    "/auth/register": {
       "post": {
         "tags": [
           "Authentication"
@@ -198,7 +202,7 @@
         }
       }
     },
-    "/pathsAuth/postLogout": {
+    "/auth/logout": {
       "post": {
         "tags": [
           "Authentication"
@@ -240,7 +244,7 @@
         }
       }
     },
-    "/pathsAuth/postRefresh": {
+    "/auth/refresh": {
       "post": {
         "tags": [
           "Authentication"
@@ -332,7 +336,7 @@
         }
       }
     },
-    "/pathsAuth/{id}": {
+    "/auth/{id}": {
       "get": {
         "tags": [
           "Authentication"
@@ -497,7 +501,7 @@
         }
       }
     },
-    "/pathsBoadrs": {
+    "/boards": {
       "post": {
         "tags": [
           "Boards"
@@ -604,7 +608,7 @@
         }
       }
     },
-    "/pathsBoadrs/{id}": {
+    "/boards/{id}": {
       "get": {
         "tags": [
           "Boards"
@@ -771,7 +775,7 @@
         }
       }
     },
-    "/pathsColumn": {
+    "/columns": {
       "post": {
         "tags": [
           "Columns"
@@ -832,7 +836,7 @@
         }
       }
     },
-    "/pathsColumn/{id}": {
+    "/columns/{id}": {
       "patch": {
         "tags": [
           "Columns"
@@ -939,7 +943,7 @@
         }
       }
     },
-    "/pathsTasks": {
+    "/tasks": {
       "post": {
         "tags": [
           "Tasks"
@@ -1039,7 +1043,7 @@
         }
       }
     },
-    "/pathsTasks/{id}": {
+    "/tasks/{id}": {
       "patch": {
         "tags": [
           "Tasks"
@@ -1169,6 +1173,83 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/send-email": {
+      "post": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Email help user",
+        "operationId": "emailUser",
+        "description": "Email message help for user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "comment"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User email",
+                    "type": "string",
+                    "example": "vadym123@gmail.com"
+                  },
+                  "comment": {
+                    "description": "Comment user",
+                    "type": "string",
+                    "example": "I need help!"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response help email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Request help email was successfully sent!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/email"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -1445,9 +1526,65 @@
             "example": "648adad50c7f3f1c0c4f8a9c"
           }
         }
+      },
+      "email": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "email",
+          "comment"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User id",
+            "type": "string",
+            "example": "673712067502f11dfed72875"
+          },
+          "name": {
+            "description": "User name",
+            "type": "string",
+            "example": "Dmytro Boyko"
+          },
+          "email": {
+            "description": "User email",
+            "type": "string",
+            "example": "dmytro3@example.com"
+          },
+          "comment": {
+            "description": "Comment user",
+            "type": "string",
+            "example": "I need help"
+          }
+        }
       }
     },
     "responses": {
+      "400": {
+        "description": "Bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad request"
+                }
+              }
+            }
+          }
+        }
+      },
       "401": {
         "description": "Unauthorized error",
         "content": {

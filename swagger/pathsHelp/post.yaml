@@ -1,0 +1,49 @@
+tags:
+  - Email
+summary: Email help user
+operationId: emailUser
+description: 'Email message help for user'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - comment
+        properties:
+          email:
+            description: 'User email'
+            type: string
+            example: 'vadym123@gmail.com'
+          comment:
+            description: 'Comment user'
+            type: string
+            example: 'I need help!'
+responses:
+  '200':
+    description: 'Response help email'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Request help email was successfully sent!'
+            data:
+              type: object
+              $ref: ../components/schemas/email.yaml
+  '400':
+    $ref: ../components/responses/400.yaml
+  '500':
+    $ref: ../components/responses/500.yaml

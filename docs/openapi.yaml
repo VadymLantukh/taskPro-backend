@@ -16,36 +16,38 @@ tags:
     description: Operations related to columns
   - name: Tasks
     description: Operations related to tasks
+  - name: Email
+    description: Operations related to email
 
 servers:
   - url: http://localhost:3000
   - url: https://task-manager-0qvm.onrender.com
 
 paths:
-  /pathsAuth/postLogin:
+  /auth/login:
     post:
       $ref: '../swagger/pathsAuth/postLogin.yaml'
-  /pathsAuth/postRegister:
+  /auth/register:
     post:
       $ref: '../swagger/pathsAuth/postRegister.yaml'
-  /pathsAuth/postLogout:
+  /auth/logout:
     post:
       $ref: '../swagger/pathsAuth/postLogout.yaml'
-  /pathsAuth/postRefresh:
+  /auth/refresh:
     post:
       $ref: '../swagger/pathsAuth/postRefresh.yaml'
-  /pathsAuth/{id}:
+  /auth/{id}:
     get:
       $ref: '../swagger/pathsAuth/{id}/get.yaml'
     patch:
       $ref: '../swagger/pathsAuth/{id}/patch.yaml'
 
-  /pathsBoadrs:
+  /boards:
     post:
       $ref: '../swagger/pathsBoadrs/post.yaml'
     get:
       $ref: '../swagger/pathsBoadrs/get.yaml'
-  /pathsBoadrs/{id}:
+  /boards/{id}:
     get:
       $ref: '../swagger/pathsBoadrs/{id}/get.yaml'
     patch:
@@ -53,23 +55,27 @@ paths:
     delete:
       $ref: '../swagger/pathsBoadrs/{id}/delete.yaml'
 
-  /pathsColumn:
+  /columns:
     post:
       $ref: ../swagger/pathsColumn/post.yaml
-  /pathsColumn/{id}:
+  /columns/{id}:
     patch:
       $ref: '../swagger/pathsColumn/{id}/patch.yaml'
     delete:
       $ref: '../swagger/pathsColumn/{id}/delete.yaml'
 
-  /pathsTasks:
+  /tasks:
     post:
       $ref: ../swagger/pathsTasks/post.yaml
-  /pathsTasks/{id}:
+  /tasks/{id}:
     patch:
       $ref: '../swagger/pathsTasks/{id}/patch.yaml'
     delete:
       $ref: '../swagger/pathsTasks/{id}/delete.yaml'
+
+  /send-email:
+    post:
+      $ref: '../swagger/pathsHelp/post.yaml'
 
 components:
   securitySchemes:

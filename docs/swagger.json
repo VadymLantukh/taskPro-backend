@@ -519,7 +519,54 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/board"
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "description": "Board title",
+                    "type": "string",
+                    "example": "Title #1"
+                  },
+                  "backgroundImage": {
+                    "description": "Background Image",
+                    "type": "string",
+                    "enum": [
+                      "bgImage_1",
+                      "bgImage_2",
+                      "bgImage_3",
+                      "bgImage_4",
+                      "bgImage_5",
+                      "bgImage_6",
+                      "bgImage_7",
+                      "bgImage_8",
+                      "bgImage_9",
+                      "bgImage_10",
+                      "bgImage_11",
+                      "bgImage_12",
+                      "bgImage_13",
+                      "bgImage_14",
+                      "bgImage_15"
+                    ],
+                    "example": "bgImage_1"
+                  },
+                  "icon": {
+                    "description": "Background Image",
+                    "type": "string",
+                    "enum": [
+                      "icon_1",
+                      "icon_2",
+                      "icon_3",
+                      "icon_4",
+                      "icon_5",
+                      "icon_6",
+                      "icon_7",
+                      "icon_8"
+                    ],
+                    "example": "icon_1"
+                  }
+                }
               }
             }
           }
@@ -630,6 +677,20 @@
               "type": "string",
               "example": "63e9a7752d25b75c0f233a7f"
             }
+          },
+          {
+            "in": "query",
+            "name": "priority",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Without",
+                "Low",
+                "Medium",
+                "High"
+              ],
+              "example": "Without"
+            }
           }
         ],
         "responses": {
@@ -697,7 +758,51 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/board"
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "description": "Board title",
+                    "type": "string",
+                    "example": "Title N1"
+                  },
+                  "backgroundImage": {
+                    "description": "Background Image",
+                    "type": "string",
+                    "enum": [
+                      "bgImage_1",
+                      "bgImage_2",
+                      "bgImage_3",
+                      "bgImage_4",
+                      "bgImage_5",
+                      "bgImage_6",
+                      "bgImage_7",
+                      "bgImage_8",
+                      "bgImage_9",
+                      "bgImage_10",
+                      "bgImage_11",
+                      "bgImage_12",
+                      "bgImage_13",
+                      "bgImage_14",
+                      "bgImage_15"
+                    ],
+                    "example": "bgImage_1"
+                  },
+                  "icon": {
+                    "description": "Background Image",
+                    "type": "string",
+                    "enum": [
+                      "icon_1",
+                      "icon_2",
+                      "icon_3",
+                      "icon_4",
+                      "icon_5",
+                      "icon_6",
+                      "icon_7",
+                      "icon_8"
+                    ],
+                    "example": "icon_1"
+                  }
+                }
               }
             }
           }
@@ -1368,8 +1473,7 @@
       "board": {
         "type": "object",
         "required": [
-          "title",
-          "userId"
+          "title"
         ],
         "properties": {
           "_id": {
@@ -1380,6 +1484,8 @@
           "title": {
             "type": "string",
             "description": "Board's title",
+            "minLength": 3,
+            "maxLength": 30,
             "example": "Project Management"
           },
           "backgroundImage": {
@@ -1439,7 +1545,6 @@
         "required": [
           "title",
           "boardId",
-          "userId",
           "order"
         ],
         "properties": {
@@ -1449,6 +1554,8 @@
           },
           "title": {
             "type": "string",
+            "minLength": 3,
+            "maxLength": 30,
             "example": "To Do"
           },
           "boardId": {

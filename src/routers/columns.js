@@ -14,16 +14,6 @@ const columnsRouter = Router();
 
 columnsRouter.use(authenticate);
 
-// columnsRouter.get(
-//   '/boards/:boardId/columns',
-//   columnsController.getAllColumnsController,
-// );
-// columnsRouter.get(
-//   '/columns/:id',
-//   isValidId,
-//   columnsController.getColumnController,
-// );
-
 columnsRouter.post(
   '/',
   validateBody(createColumnSchema),

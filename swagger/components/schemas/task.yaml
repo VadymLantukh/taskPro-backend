@@ -1,5 +1,6 @@
 type: object
 required:
+  - _id
   - title
   - description
   - userId

@@ -1,20 +1,13 @@
 tags:
   - Authentication
-summary: Get user by id
+summary: Get user
 operationId: getUser
-description: 'Get user information by id'
+description: 'Get user information'
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '673712067502f11dfed72875'
 responses:
   '200':
-    description: 'Get user by id'
+    description: 'Get user'
     content:
       application/json:
         schema:

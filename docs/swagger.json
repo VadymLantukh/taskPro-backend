@@ -11,9 +11,6 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
-    },
-    {
       "url": "https://task-manager-0qvm.onrender.com"
     }
   ],
@@ -336,33 +333,22 @@
         }
       }
     },
-    "/auth/{id}": {
+    "/auth": {
       "get": {
         "tags": [
           "Authentication"
         ],
-        "summary": "Get user by id",
+        "summary": "Get user",
         "operationId": "getUser",
-        "description": "Get user information by id",
+        "description": "Get user information",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "673712067502f11dfed72875"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Get user by id",
+            "description": "Get user",
             "content": {
               "application/json": {
                 "schema": {
@@ -402,23 +388,12 @@
         "tags": [
           "Authentication"
         ],
-        "summary": "update user by id",
+        "summary": "Update user",
         "operationId": "updateUser",
-        "description": "update user information by id",
+        "description": "update user information",
         "security": [
           {
             "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "673712067502f11dfed72875"
-            }
           }
         ],
         "requestBody": {
@@ -464,7 +439,7 @@
         },
         "responses": {
           "200": {
-            "description": "update user by id",
+            "description": "update user",
             "content": {
               "application/json": {
                 "schema": {
@@ -527,6 +502,8 @@
                   "title": {
                     "description": "Board title",
                     "type": "string",
+                    "minLength": 3,
+                    "maxLength": 30,
                     "example": "Title #1"
                   },
                   "backgroundImage": {
@@ -763,6 +740,8 @@
                   "title": {
                     "description": "Board title",
                     "type": "string",
+                    "minLength": 3,
+                    "maxLength": 30,
                     "example": "Title N1"
                   },
                   "backgroundImage": {
@@ -898,7 +877,23 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/column"
+                "type": "object",
+                "required": [
+                  "title",
+                  "boardId"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 30,
+                    "example": "To Do"
+                  },
+                  "boardId": {
+                    "type": "string",
+                    "example": "64ca67e7ae7f10c88b598385"
+                  }
+                }
               }
             }
           }
@@ -970,7 +965,15 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/column"
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 30,
+                    "example": "To Do"
+                  }
+                }
               }
             }
           }
@@ -1071,8 +1074,7 @@
                   "title",
                   "description",
                   "columnId",
-                  "boardId",
-                  "userId"
+                  "boardId"
                 ],
                 "properties": {
                   "title": {
@@ -1380,6 +1382,7 @@
           "_id": {
             "description": "User id",
             "type": "string",
+            "format": "objectId",
             "example": "673712067502f11dfed72875"
           },
           "name": {
@@ -1416,13 +1419,14 @@
             "description": "Boards user",
             "type": "array",
             "items": {
-              "description": "Array of board IDs associated with the user",
-              "type": "string",
-              "format": "objectId",
-              "example": [
-                "672331785da3c1f17105b405",
-                "672331785da3c1f17105b406"
-              ]
+              "description": "Array of boards associated with the user",
+              "type": "object",
+              "example": {
+                "_id": "673b545511d2956f8d550140",
+                "title": "board 1",
+                "backgroundImage": "bgImage_5",
+                "icon": "icon_6"
+              }
             }
           }
         }
@@ -1441,11 +1445,13 @@
           "_id": {
             "description": "User id in MongoDB",
             "type": "string",
+            "format": "objectId",
             "example": "6737610600a6d96eb9911056"
           },
           "userId": {
             "description": "UserId user",
             "type": "string",
+            "format": "objectId",
             "example": "673760f000a6d96eb9911052"
           },
           "accessToken": {
@@ -1473,11 +1479,15 @@
       "board": {
         "type": "object",
         "required": [
-          "title"
+          "_id",
+          "title",
+          "columns",
+          "userId"
         ],
         "properties": {
           "_id": {
             "type": "string",
+            "format": "objectId",
             "description": "Board's id",
             "example": "63e9a7752d25b75c0f233a7f"
           },
@@ -1535,6 +1545,7 @@
           },
           "userId": {
             "type": "string",
+            "format": "objectId",
             "description": "User's id",
             "example": "63e9a7752d25b75c0f233a7f"
           }
@@ -1543,13 +1554,16 @@
       "column": {
         "type": "object",
         "required": [
+          "_id",
           "title",
           "boardId",
-          "order"
+          "order",
+          "userId"
         ],
         "properties": {
-          "id": {
+          "_id": {
             "type": "string",
+            "format": "objectId",
             "example": "64ca67e7ae7f10c88b598384"
           },
           "title": {
@@ -1560,10 +1574,12 @@
           },
           "boardId": {
             "type": "string",
+            "format": "objectId",
             "example": "64ca67e7ae7f10c88b598385"
           },
           "userId": {
             "type": "string",
+            "format": "objectId",
             "example": "64ca67e7ae7f10c88b598386"
           },
           "tasks": {
@@ -1582,6 +1598,7 @@
       "task": {
         "type": "object",
         "required": [
+          "_id",
           "title",
           "description",
           "userId",

@@ -1,17 +1,10 @@
 tags:
   - Authentication
-summary: update user by id
+summary: Update user
 operationId: updateUser
-description: 'update user information by id'
+description: 'update user information'
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '673712067502f11dfed72875'
 requestBody:
   content:
     multipart/form-data:
@@ -41,7 +34,7 @@ requestBody:
             format: binary
 responses:
   '200':
-    description: 'update user by id'
+    description: 'update user'
     content:
       application/json:
         schema:

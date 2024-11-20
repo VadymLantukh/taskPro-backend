@@ -20,7 +20,6 @@ tags:
     description: Operations related to email
 
 servers:
-  - url: http://localhost:3000
   - url: https://task-manager-0qvm.onrender.com
 
 paths:
@@ -36,7 +35,7 @@ paths:
   /auth/refresh:
     post:
       $ref: '../swagger/pathsAuth/postRefresh.yaml'
-  /auth/{id}:
+  /auth:
     get:
       $ref: '../swagger/pathsAuth/{id}/get.yaml'
     patch:

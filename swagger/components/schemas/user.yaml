@@ -6,8 +6,9 @@ required:
   - password
 properties:
   _id:
-    description: "User id"
+    description: 'User id'
     type: string
+    format: objectId
     example: 673712067502f11dfed72875
   name:
     description: 'User name'
@@ -34,7 +35,12 @@ properties:
     description: 'Boards user'
     type: array
     items:
-      description: 'Array of board IDs associated with the user'
-      type: string
-      format: objectId
-      example: ['672331785da3c1f17105b405', '672331785da3c1f17105b406']
+      description: 'Array of boards associated with the user'
+      type: object
+      example:
+        {
+          '_id': '673b545511d2956f8d550140',
+          'title': 'board 1',
+          'backgroundImage': 'bgImage_5',
+          'icon': 'icon_6',
+        }

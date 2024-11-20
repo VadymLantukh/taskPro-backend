@@ -1,7 +1,6 @@
 type: object
 required:
   - title
-  - userId
 properties:
   _id:
     type: string
@@ -10,6 +9,8 @@ properties:
   title:
     type: string
     description: "Board's title"
+    minLength: 3
+    maxLength: 30
     example: 'Project Management'
   backgroundImage:
     type: string

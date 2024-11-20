@@ -12,6 +12,12 @@ parameters:
     schema:
       type: string
       example: '63e9a7752d25b75c0f233a7f'
+  - in: query
+    name: priority
+    schema:
+      type: string
+      enum: ['Without', 'Low', 'Medium', 'High']
+      example: 'Without'
 responses:
   '200':
     description: Successfully retrieved board data

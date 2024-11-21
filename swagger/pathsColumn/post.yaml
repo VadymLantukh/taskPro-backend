@@ -10,7 +10,19 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: '../components/schemas/column.yaml'
+        type: object
+        required:
+          - title
+          - boardId
+        properties:
+          title:
+            type: string
+            minLength: 3
+            maxLength: 30
+            example: 'To Do'
+          boardId:
+            type: string
+            example: '64ca67e7ae7f10c88b598385'
 responses:
   '201':
     description: Column successfully created

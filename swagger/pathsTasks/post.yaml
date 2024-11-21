@@ -16,7 +16,6 @@ requestBody:
           - description
           - columnId
           - boardId
-          - userId
         properties:
           title:
             type: string

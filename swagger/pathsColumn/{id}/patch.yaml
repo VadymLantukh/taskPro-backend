@@ -17,7 +17,13 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: '../../components/schemas/column.yaml'
+        type: object
+        properties:
+          title:
+            type: string
+            minLength: 3
+            maxLength: 30
+            example: 'To Do'
 responses:
   '200':
     description: Column successfully updated

@@ -10,10 +10,12 @@ properties:
   _id:
     description: 'User id in MongoDB'
     type: string
+    format: objectId
     example: 6737610600a6d96eb9911056
   userId:
     description: 'UserId user'
     type: string
+    format: objectId
     example: '673760f000a6d96eb9911052'
   accessToken:
     description: 'AccessToken user'

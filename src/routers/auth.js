@@ -15,7 +15,6 @@ import {
   registerUsersSchema,
   updateUserSchema,
 } from '../validation/auth.js';
-import { isValidId } from '../middlewares/isValidId.js';
 import { upload } from '../middlewares/multer.js';
 import { authenticate } from '../middlewares/authenticate.js';
 
@@ -33,11 +32,10 @@ authRouter.post(
   ctrlWrapper(loginUsersController),
 );
 
-authRouter.get('/:id', isValidId, authenticate, ctrlWrapper(getUserController));
+authRouter.get('/', authenticate, ctrlWrapper(getUserController));
 
 authRouter.patch(
-  '/:id',
-  isValidId,
+  '/',
   authenticate,
   upload.single('avatar'),
   validateBody(updateUserSchema),

@@ -49,7 +49,7 @@ export const loginUsersController = async (req, res) => {
 };
 
 export const getUserController = async (req, res, next) => {
-  const { id: _id } = req.params;
+  const { _id } = req.user;
 
   const data = await getUserById(_id);
 
@@ -67,7 +67,7 @@ export const getUserController = async (req, res, next) => {
 
 export const updateUserController = async (req, res) => {
   const avatar = req.file;
-  const { id } = req.params;
+  const { _id } = req.user;
   let avatarUrl;
 
   if (avatar) {
@@ -77,8 +77,8 @@ export const updateUserController = async (req, res) => {
   }
 
   const result = await updateUser(
-    { _id: id },
-    { ...req.body, id, avatar: avatarUrl },
+    { _id },
+    { ...req.body, _id, avatar: avatarUrl },
   );
 
   if (!result) {

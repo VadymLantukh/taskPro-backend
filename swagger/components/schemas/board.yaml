@@ -1,9 +1,13 @@
 type: object
 required:
+  - _id
   - title
+  - columns
+  - userId
 properties:
   _id:
     type: string
+    format: objectId
     description: "Board's id"
     example: 63e9a7752d25b75c0f233a7f
   title:
@@ -57,5 +61,6 @@ properties:
       example: '65e4decdd286b30065d54af9'
   userId:
     type: string
+    format: objectId
     description: "User's id"
     example: '63e9a7752d25b75c0f233a7f'

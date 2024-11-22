@@ -85,6 +85,8 @@ export const updateUser = async (filter, payload, options = {}) => {
     includeResultMetadata: true,
   });
 
+  console.log(rawResult);
+
   if (!rawResult || !rawResult.value) return null;
 
   return {

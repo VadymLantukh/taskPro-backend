@@ -77,10 +77,10 @@ export const updateUserController = async (req, res) => {
 
   const updateData = { ...req.body, avatar: avatarUrl };
 
-  if (updateData.password) {
-    const encryptedPassword = await bcrypt.hash(updateData.password, 10);
-    updateData.password = encryptedPassword;
-  }
+  // if (updateData.password) {
+  //   const encryptedPassword = await bcrypt.hash(updateData.password, 10);
+  //   updateData.password = encryptedPassword;
+  // }
 
   const result = await updateUser({ _id }, updateData);
 

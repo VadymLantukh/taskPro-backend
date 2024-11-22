@@ -9,7 +9,7 @@ const boardSchema = new Schema(
     },
     backgroundImage: {
       type: String,
-      enum: boardImages,
+      enum: [...boardImages, null],
       default: null,
     },
     icon: {

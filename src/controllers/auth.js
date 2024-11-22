@@ -1,5 +1,6 @@
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 import { THIRTY_DAYS } from '../constants/tokenLifetime.js';
 import {
@@ -83,6 +84,7 @@ export const updateUserController = async (req, res) => {
   // }
 
   const result = await updateUser({ _id }, updateData);
+  const result = await updateUser({ _id }, updateData);
 
   if (!result) {
     throw createHttpError(404, 'User not found');
@@ -90,6 +92,7 @@ export const updateUserController = async (req, res) => {
 
   res.status(200).json({
     status: 200,
+    message: 'Successfully updated user profile!',
     message: 'Successfully updated user profile!',
     data: result.user,
   });

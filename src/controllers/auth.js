@@ -1,6 +1,4 @@
 import createHttpError from 'http-errors';
-import bcrypt from 'bcrypt';
-import bcrypt from 'bcrypt';
 
 import { THIRTY_DAYS } from '../constants/tokenLifetime.js';
 import {
@@ -83,7 +81,6 @@ export const updateUserController = async (req, res) => {
   //   updateData.password = encryptedPassword;
   // }
 
-  const result = await updateUser({ _id }, updateData);
   const result = await updateUser({ _id }, updateData);
 
   if (!result) {

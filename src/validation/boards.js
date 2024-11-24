@@ -1,4 +1,5 @@
 import Joi from 'joi';
+
 import { boardIcons, boardImages } from '../constants/boards.js';
 
 export const createBoardSchema = Joi.object({

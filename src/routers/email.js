@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { sendEmailController } from '../controllers/email.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { authenticate } from '../middlewares/authenticate.js';

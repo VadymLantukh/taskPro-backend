@@ -1,6 +1,7 @@
 import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
+
 import { TEMPLATES_DIR } from '../constants/templatesDir.js';
 import { sendEmail } from '../utils/sendEmail.js';
 import { env } from '../utils/env.js';

@@ -1,4 +1,5 @@
 import Joi from 'joi';
+
 import { themeType } from '../constants/themeType.js';
 
 export const registerUsersSchema = Joi.object({

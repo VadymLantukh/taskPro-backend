@@ -1204,6 +1204,10 @@
                     "type": "string",
                     "format": "date-time",
                     "example": "2024-12-15T00:00:00Z"
+                  },
+                  "columnId": {
+                    "type": "string",
+                    "example": "648adad50c7f3f1c0c4f8a9c"
                   }
                 }
               }

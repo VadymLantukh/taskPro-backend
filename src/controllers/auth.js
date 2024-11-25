@@ -70,16 +70,18 @@ export const updateUserController = async (req, res) => {
   const { _id } = req.user;
   let avatarUrl;
 
-  if (avatar) {
-    if (env('ENABLE_CLOUDINARY') === 'true') {
-      avatarUrl = await saveFileToCloudinary(avatar);
-    }
+  if (avatar && env('ENABLE_CLOUDINARY') === 'true') {
+    avatarUrl = await saveFileToCloudinary(avatar);
   }
 
-  const result = await updateUser(
-    { _id },
-    { ...req.body, _id, avatar: avatarUrl },
-  );
+  const updateData = { ...req.body, avatar: avatarUrl };
+
+  // if (updateData.password) {
+  //   const encryptedPassword = await bcrypt.hash(updateData.password, 10);
+  //   updateData.password = encryptedPassword;
+  // }
+
+  const result = await updateUser({ _id }, updateData);
 
   if (!result) {
     throw createHttpError(404, 'User not found');
@@ -87,7 +89,8 @@ export const updateUserController = async (req, res) => {
 
   res.status(200).json({
     status: 200,
-    message: 'Successfully patched a user profile!',
+    message: 'Successfully updated user profile!',
+    message: 'Successfully updated user profile!',
     data: result.user,
   });
 };

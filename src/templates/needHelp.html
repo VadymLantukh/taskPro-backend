@@ -1,88 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Help Request</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+      }
 
-        .email-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            padding: 20px;
-        }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        padding: 20px;
+      }
 
-        .header {
-            background-color: #BEDBB0;
-            color: #ffffff;
-            text-align: center;
-            padding: 10px 0;
-        }
+      .header {
+        background-color: #bedbb0;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px 0;
+      }
 
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
 
-        .content {
-            padding: 20px;
-            text-align: left;
-            font-size: 16px;
-        }
+      .content {
+        padding: 20px;
+        text-align: left;
+        font-size: 16px;
+      }
 
-        .content p {
-            margin: 10px 0;
-        }
+      .content p {
+        margin: 10px 0;
+      }
 
-        .content .comment {
-            font-style: italic;
-            color: #555;
-            font-size: 22px;
-        }
+      .content .comment {
+        font-style: italic;
+        color: #555;
+        font-size: 22px;
+      }
 
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #777;
-        }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #777;
+      }
 
-        .footer a {
-            color: #BEDBB0;
-            text-decoration: none;
-        }
+      .footer a {
+        color: #bedbb0;
+        text-decoration: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="email-container">
-        <div class="header">
-            <h1>Hello, {{name}}!</h1>
-        </div>
-        <div class="content">
-            <p>Thank you for reaching out to us. Our team has received your inquiry and will get back to you as soon as
-                possible.</p>
-            <p class="comment">Your question: "{{comment}}"</p>
-            <p>We appreciate your patience and will do our best to assist you.</p>
-        </div>
-        <div class="footer">
-            <p>&copy; 2024 TaskPro BC 73. All rights reserved.</p>
-            <p>Need more help? <a href="mailto:73task.manager73@gmail.com">Contact Support</a></p>
-        </div>
+      <div class="header">
+        <h1>Hello, {{name}}!</h1>
+      </div>
+      <div class="content">
+        <p>
+          Thank you for reaching out to us. Our team has received your inquiry
+          and will get back to you as soon as possible.
+        </p>
+        <p class="comment">Your question: "{{comment}}"</p>
+        <p>We appreciate your patience and will do our best to assist you.</p>
+      </div>
+      <div class="footer">
+        <p>&copy; 2024 TaskPro BC 73. All rights reserved.</p>
+        <p>
+          Need more help?
+          <a href="mailto:73task.manager73@gmail.com">Contact Support</a>
+        </p>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

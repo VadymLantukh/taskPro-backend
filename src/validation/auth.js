@@ -1,4 +1,5 @@
 import Joi from 'joi';
+
 import { themeType } from '../constants/themeType.js';
 
 export const registerUsersSchema = Joi.object({
@@ -13,9 +14,11 @@ export const loginUsersSchema = Joi.object({
 });
 
 export const updateUserSchema = Joi.object({
-  name: Joi.string().min(2).max(32),
-  email: Joi.string().email(),
-  password: Joi.string().min(8).max(64),
-  avatar: Joi.string(),
-  theme: Joi.string().valid(...themeType),
+  name: Joi.string().min(2).max(32).optional(),
+  email: Joi.string().email().optional(),
+  password: Joi.string().min(8).max(64).optional(),
+  avatar: Joi.string().optional(),
+  theme: Joi.string()
+    .valid(...themeType)
+    .optional(),
 });

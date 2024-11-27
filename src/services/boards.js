@@ -5,7 +5,6 @@ import { UsersCollection } from '../db/User.js';
 
 export const getBoards = async (userId) => {
   const filter = { userId };
-
   const boards = await BoardCollection.find(filter);
 
   return boards;

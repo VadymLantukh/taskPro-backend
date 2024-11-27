@@ -43,7 +43,6 @@ export const updateTask = async (filter, payload) => {
 
 export const findOldColumnId = async (_id) => {
   const data = await TasksCollection.findById(_id);
-
   const oldColumnId = data.columnId;
 
   return oldColumnId;

@@ -21,6 +21,7 @@ export const addColumn = async (payload) => {
     tasks: [],
     order: newOrder,
   });
+
   await newColumn.save();
 
   await BoardCollection.findByIdAndUpdate(boardId, {

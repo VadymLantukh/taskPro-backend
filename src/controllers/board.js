@@ -5,7 +5,6 @@ import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getBoardsController = async (req, res) => {
   const { _id: userId } = req.user;
-
   const boards = await boardsServices.getBoards(userId);
 
   res.json({

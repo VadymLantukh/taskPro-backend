@@ -1,9 +1,8 @@
 import Joi from 'joi';
 
-import { getDate } from '../utils/getDate.js';
+// import { getDate } from '../utils/getDate.js';
 import { priorityList } from '../constants/tasks.js';
-
-const date = getDate();
+// const date = getDate();
 
 export const createTaskSchema = Joi.object({
   title: Joi.string().required().messages({
@@ -21,10 +20,7 @@ export const createTaskSchema = Joi.object({
       'any.only':
         '"priority" must be one of the following values: Without, Low, Medium, High',
     }),
-  deadline: Joi.date().min(date).messages({
-    'date.min': '"deadline" cannot be less than the current date',
-    'any.required': 'Missing required field "deadline"',
-  }),
+  deadline: Joi.date(),
   columnId: Joi.string().required().messages({
     'string.base': '"columnId" must be a string',
     'any.required': 'Missing required field "columnId"',
@@ -47,9 +43,7 @@ export const updateTaskSchema = Joi.object({
     'any.only':
       '"priority" must be one of the following values: Without, Low, Medium, High',
   }),
-  deadline: Joi.date().min(date).messages({
-    'date.min': '"deadline" cannot be less than the current date',
-  }),
+  deadline: Joi.date(),
   columnId: Joi.string().messages({
     'string.base': '"columnId" must be a string',
   }),
